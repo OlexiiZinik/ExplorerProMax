@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ExplorerProMax
+namespace ExplorerProMax.UI
 {
     public partial class MainWindow : Form
     {
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExplorerProMax", "ExplorerProMax\ExplorerProMax.csproj", "{2A26F409-7A5F-4293-92FD-A06E4E443E87}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExplorerProMaxTests", "ExplorerProMaxTests\ExplorerProMaxTests.csproj", "{B83492A8-77D7-47D2-9091-EDE76F686955}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{2A26F409-7A5F-4293-92FD-A06E4E443E87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A26F409-7A5F-4293-92FD-A06E4E443E87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A26F409-7A5F-4293-92FD-A06E4E443E87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B83492A8-77D7-47D2-9091-EDE76F686955}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B83492A8-77D7-47D2-9091-EDE76F686955}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B83492A8-77D7-47D2-9091-EDE76F686955}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B83492A8-77D7-47D2-9091-EDE76F686955}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

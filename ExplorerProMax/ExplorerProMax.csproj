@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2A26F409-7A5F-4293-92FD-A06E4E443E87}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>ExplorerProMax</RootNamespace>
     <AssemblyName>ExplorerProMax</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
@@ -35,6 +35,12 @@
   <PropertyGroup>
     <ApplicationIcon>Ex.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,10 +55,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainWindow.cs">
+    <Compile Include="Core\PathEntity\DirectoryInfo.cs" />
+    <Compile Include="Core\PathEntity\DiskInfo.cs" />
+    <Compile Include="Core\PathEntity\FileInfo.cs" />
+    <Compile Include="Core\FileExplorer.cs" />
+    <Compile Include="Core\PathEntity\IListable.cs" />
+    <Compile Include="Core\PathEntity\IPathEntity.cs" />
+    <Compile Include="Core\Utils.cs" />
+    <Compile Include="UI\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainWindow.Designer.cs">
+    <Compile Include="UI\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -63,7 +76,9 @@
     <Compile Include="UI\Components\FolderWindow.Designer.cs">
       <DependentUpon>FolderWindow.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="MainWindow.resx">
+    <Compile Include="UI\Components\ListViewObjectItem.cs" />
+    <Compile Include="UI\Utils.cs" />
+    <EmbeddedResource Include="UI\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -79,6 +94,7 @@
     <EmbeddedResource Include="UI\Components\FolderWindow.resx">
       <DependentUpon>FolderWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -94,10 +110,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Core\" />
+    <Folder Include="Core\Actions\" />
+    <Folder Include="Resources\FileIcons\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Ex.ico" />
+    <None Include="Resources\Windows.png" />
+    <None Include="Resources\Microsost.png" />
+    <None Include="Resources\Copyleft.png" />
+    <None Include="Resources\car.png" />
+    <None Include="Resources\322497-64.png" />
     <None Include="Resources\Ex.png" />
     <None Include="Resources\Ex.ico" />
   </ItemGroup>
