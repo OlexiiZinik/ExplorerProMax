@@ -10,5 +10,6 @@ namespace ExplorerProMax.Core.PathEntity
     {
         string FullPath { get; }
         List<IPathEntity> ListDirectory();
+        IListable Parent { get; }
     }
 }

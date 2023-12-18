@@ -15,6 +15,7 @@ namespace ExplorerProMax.Core
             var result = new List<PathEntity.IPathEntity>();
             var files = Directory.GetFiles(directory.FullPath);
             var directoris = Directory.GetDirectories(directory.FullPath);
+            result.Add(new PathEntity.ParentLink(directory));
             result.AddRange(directoris.Select((d) => new PathEntity.DirectoryInfo(d)));
             result.AddRange(files.Select((d) => new PathEntity.FileInfo(d)));
             return result;
@@ -24,6 +25,16 @@ namespace ExplorerProMax.Core
             var result = new List<PathEntity.DiskInfo>();
             result.AddRange(DriveInfo.GetDrives().Select((d) => new PathEntity.DiskInfo(d.Name)));
             return result;
+        }
+
+        public static IListable GetParent(IPathEntity pathEntity)
+        {
+            var splitedPath = pathEntity.FullPath.Split(@"/\".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            if(splitedPath.Length <= 1)
+            {
+                return null;
+            }
+            return new PathEntity.DirectoryInfo(String.Join(@"\", splitedPath.Take(splitedPath.Length - 1)) + @"\");
         }
     }
 }

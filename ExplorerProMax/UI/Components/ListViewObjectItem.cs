@@ -15,7 +15,7 @@ namespace ExplorerProMax.UI.Components
         public ListViewObjectItem(IPathEntity pathEntity) : base()
         {
             Item = pathEntity;
-            if (pathEntity is FileInfo ||  pathEntity is DirectoryInfo)
+            if (pathEntity is FileInfo ||  pathEntity is DirectoryInfo || pathEntity is ParentLink)
             {
                 this.Text = Item.Name;
             }

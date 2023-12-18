@@ -11,6 +11,7 @@ namespace ExplorerProMax.Core.PathEntity
         FILE,
         DIRECTORY,
         DISK,
+        PARENT_DIR,
     }
 
     public interface IPathEntity
@@ -18,6 +19,6 @@ namespace ExplorerProMax.Core.PathEntity
         string Name { get; }
         EntityType Type { get; }
         string FullPath { get; }
-
+        IListable Parent {  get; }
     }
 }

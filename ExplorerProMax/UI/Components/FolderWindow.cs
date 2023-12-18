@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,16 @@ namespace ExplorerProMax.UI.Components
             InitializeComponent();
             cbDisk.Items.AddRange(Explorer.GetAllDisks().Select(x => x.Name).ToArray());
             lvFiles.Items.Clear();
+            bForward.Enabled = false;
+            fswObserver.NotifyFilter = NotifyFilters.Attributes
+                                 | NotifyFilters.CreationTime
+                                 | NotifyFilters.DirectoryName
+                                 | NotifyFilters.FileName
+                                 | NotifyFilters.LastAccess
+                                 | NotifyFilters.LastWrite
+                                 | NotifyFilters.Security
+                                 | NotifyFilters.Size;
+
             ShowHome();
         }
 
@@ -31,6 +42,8 @@ namespace ExplorerProMax.UI.Components
 
         public void ShowHome()
         {
+            tbPath.Text = "";
+            fswObserver.EnableRaisingEvents = false;
             cbDisk.Text = string.Empty;
             bBackward.Enabled = false;
             ShowFiles(Explorer.GetAllDisks().Cast<IPathEntity>().ToList());
@@ -38,15 +51,29 @@ namespace ExplorerProMax.UI.Components
 
         public void ChangeDirectory(IListable path)
         {
-            bBackward.Enabled = true;
-            Explorer.ChangeDirectory(path);
-            tbPath.Text = Explorer.CurrentWorkingDirectory.FullPath;
-            ShowCurrentDirectory();
+            try
+            {
+                Explorer.ChangeDirectory(path);
+                bForward.Enabled = false;
+                ShowCurrentDirectory();
+                
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                Explorer.Backward();
+                fswObserver.Path = Explorer.CurrentWorkingDirectory.FullPath;
+                fswObserver.EnableRaisingEvents = true;
+                MessageBox.Show("У доступі відмовлено", "Помилка доступу", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void ShowCurrentDirectory()
         {
             ShowFiles(Explorer.CurrentWorkingDirectory);
+            tbPath.Text = Explorer.CurrentWorkingDirectory.FullPath;
+            bBackward.Enabled = true;
+            fswObserver.Path = Explorer.CurrentWorkingDirectory.FullPath;
+            fswObserver.EnableRaisingEvents = true;
         }
 
         public void ShowFiles(IListable listable)
@@ -76,18 +103,43 @@ namespace ExplorerProMax.UI.Components
                 {
                     ChangeDirectory(doubleClicked as IListable);
                 }
+                if (doubleClicked is ParentLink)
+                {
+                    bBackward.PerformClick();
+                    bForward.Enabled = false;
+                }
 
             }
         }
 
         private void bBackward_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                Explorer.Backward();
+                ShowCurrentDirectory();
+            }
+            catch (DirectoryNotFoundException)
+            {
+                ShowHome();
+            }
+            bForward.Enabled = true;
         }
 
         private void bForward_Click(object sender, EventArgs e)
         {
+            bForward.Enabled = Explorer.Forward();
+            ShowCurrentDirectory();
+        }
 
+        private void fswObserver_Changed(object sender, FileSystemEventArgs e)
+        {
+            ShowCurrentDirectory();
+        }
+
+        private void fswObserver_Renamed(object sender, RenamedEventArgs e)
+        {
+            ShowCurrentDirectory();
         }
     }
 }

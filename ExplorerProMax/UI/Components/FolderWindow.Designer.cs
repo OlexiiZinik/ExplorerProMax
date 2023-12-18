@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
             "123",
             "asd",
             "fgh",
             "gjh",
             "cvb"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("321");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("321");
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
             "222",
             "asd"}, -1);
             this.lvFiles = new System.Windows.Forms.ListView();
@@ -51,6 +51,8 @@
             this.bBackward = new System.Windows.Forms.Button();
             this.bForward = new System.Windows.Forms.Button();
             this.lStats = new System.Windows.Forms.Label();
+            this.fswObserver = new System.IO.FileSystemWatcher();
+            ((System.ComponentModel.ISupportInitialize)(this.fswObserver)).BeginInit();
             this.SuspendLayout();
             // 
             // lvFiles
@@ -68,13 +70,13 @@
             this.columnHeader5});
             this.lvFiles.FullRowSelect = true;
             this.lvFiles.HideSelection = false;
-            listViewItem1.StateImageIndex = 0;
-            listViewItem2.StateImageIndex = 0;
-            listViewItem3.StateImageIndex = 0;
+            listViewItem4.StateImageIndex = 0;
+            listViewItem5.StateImageIndex = 0;
+            listViewItem6.StateImageIndex = 0;
             this.lvFiles.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3});
+            listViewItem4,
+            listViewItem5,
+            listViewItem6});
             this.lvFiles.LabelEdit = true;
             this.lvFiles.LargeImageList = this.ilIcons;
             this.lvFiles.Location = new System.Drawing.Point(3, 31);
@@ -169,6 +171,14 @@
             this.lStats.TabIndex = 5;
             this.lStats.Text = "Stats";
             // 
+            // fswObserver
+            // 
+            this.fswObserver.SynchronizingObject = this;
+            this.fswObserver.Changed += new System.IO.FileSystemEventHandler(this.fswObserver_Changed);
+            this.fswObserver.Created += new System.IO.FileSystemEventHandler(this.fswObserver_Changed);
+            this.fswObserver.Deleted += new System.IO.FileSystemEventHandler(this.fswObserver_Changed);
+            this.fswObserver.Renamed += new System.IO.RenamedEventHandler(this.fswObserver_Renamed);
+            // 
             // FolderWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -182,6 +192,7 @@
             this.Name = "FolderWindow";
             this.Size = new System.Drawing.Size(603, 691);
             this.Load += new System.EventHandler(this.FolderWindow_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.fswObserver)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -201,5 +212,6 @@
         private System.Windows.Forms.Label lStats;
         private System.Windows.Forms.ImageList ilIcons;
         private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.IO.FileSystemWatcher fswObserver;
     }
 }

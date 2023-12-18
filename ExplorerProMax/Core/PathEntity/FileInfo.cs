@@ -20,6 +20,7 @@ namespace ExplorerProMax.Core.PathEntity
 
         public long Size => new System.IO.FileInfo(FullPath).Length;
 
+        public IListable Parent => Utils.GetParent(this);
 
         public FileInfo() { }
 

@@ -61,6 +61,7 @@
     <Compile Include="Core\FileExplorer.cs" />
     <Compile Include="Core\PathEntity\IListable.cs" />
     <Compile Include="Core\PathEntity\IPathEntity.cs" />
+    <Compile Include="Core\PathEntity\ParentLink.cs" />
     <Compile Include="Core\Utils.cs" />
     <Compile Include="UI\MainWindow.cs">
       <SubType>Form</SubType>
@@ -115,11 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Ex.ico" />
-    <None Include="Resources\Windows.png" />
-    <None Include="Resources\Microsost.png" />
-    <None Include="Resources\Copyleft.png" />
-    <None Include="Resources\car.png" />
-    <None Include="Resources\322497-64.png" />
+    <Content Include="Resources\322497-64.png" />
     <None Include="Resources\Ex.png" />
     <None Include="Resources\Ex.ico" />
   </ItemGroup>

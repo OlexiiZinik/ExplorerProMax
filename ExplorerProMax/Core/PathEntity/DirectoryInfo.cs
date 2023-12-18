@@ -15,6 +15,8 @@ namespace ExplorerProMax.Core.PathEntity
 
         public string FullPath { get; private set; }
 
+        public IListable Parent => Utils.GetParent(this);
+
         public DirectoryInfo() { }
 
 

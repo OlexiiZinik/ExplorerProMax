@@ -20,6 +20,8 @@ namespace ExplorerProMax.Core.PathEntity
 
         public string FullPath { get; private set; }
 
+        public IListable Parent => null;
+
         public DiskInfo() { }
 
         public DiskInfo(string fullPath, bool checkExists = true)

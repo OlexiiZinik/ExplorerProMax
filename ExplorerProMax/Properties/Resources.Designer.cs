@@ -65,7 +65,7 @@ namespace ExplorerProMax.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap _322497_64 {
             get {
-                object obj = ResourceManager.GetObject("322497-64", resourceCulture);
+                object obj = ResourceManager.GetObject("_322497_64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

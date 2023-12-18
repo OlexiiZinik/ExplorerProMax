@@ -59,6 +59,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Core\FileExplorerTests.cs" />
     <Compile Include="Core\FileInfoTests.cs" />
     <Compile Include="Core\PathEntity\DirectoryInfoTests.cs" />
     <Compile Include="Core\PathEntity\DiskInfoTests.cs" />
