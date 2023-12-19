@@ -36,6 +36,7 @@ namespace ExplorerProMax.UI.Components
                                  | NotifyFilters.Size;
 
             ShowHome();
+            
         }
 
         private void FolderWindow_Load(object sender, EventArgs e)
@@ -91,9 +92,27 @@ namespace ExplorerProMax.UI.Components
         public void ShowFiles(List<IPathEntity> files)
         {
             lvFiles.Items.Clear();
+            for (int i = 5; i < lvFiles.Items.Count; i++)
+                ilIcons.Images.RemoveAt(i);
+
             foreach (IPathEntity entity in files)
             {
                 var record = new ListViewObjectItem(entity);
+                if (entity is ParentLink)
+                    record.ImageIndex = 2;
+                else if(entity.Type == EntityType.DIRECTORY)
+                    record.ImageIndex = 1;
+                else if (entity.Type == EntityType.DISK)
+                    if(entity.Name == "C:")
+                        record.ImageIndex = 4;
+                    else
+                        record.ImageIndex = 3;
+                else
+                {
+                    ilIcons.Images.Add(Icon.ExtractAssociatedIcon(entity.FullPath));
+                    record.ImageIndex = ilIcons.Images.Count - 1;
+                }
+                
                 lvFiles.Items.Add(record);
 
             }
