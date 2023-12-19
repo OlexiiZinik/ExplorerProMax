@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace ExplorerProMax.Core
 {
@@ -19,6 +20,9 @@ namespace ExplorerProMax.Core
 
         public void ChangeDirectory(IListable directory) 
         {
+            if (CurrentWorkingDirectory?.FullPath == directory.FullPath)
+                return;
+
             if(path_history.Count - 1 > current_path_index)
                 path_history = path_history.Take(current_path_index+1).ToList();
 
@@ -62,6 +66,19 @@ namespace ExplorerProMax.Core
                 return path_history.Count - 1 > current_path_index;
             }
             return false;
+        }
+
+        public DiskInfo GetCurrentWorkingDisk()
+        {
+            if(CurrentWorkingDirectory is null)
+                return null;
+
+            IListable dir = CurrentWorkingDirectory;
+            while (dir.Parent != null)
+            {
+                dir = dir.Parent;
+            }
+            return new DiskInfo(dir.FullPath);
         }
 
         private void FillEmptyHistory()

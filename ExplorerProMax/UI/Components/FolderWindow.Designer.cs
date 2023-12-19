@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "123",
             "asd",
             "fgh",
             "gjh",
             "cvb"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("321");
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("321");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
             "222",
             "asd"}, -1);
             this.lvFiles = new System.Windows.Forms.ListView();
@@ -70,13 +70,13 @@
             this.columnHeader5});
             this.lvFiles.FullRowSelect = true;
             this.lvFiles.HideSelection = false;
-            listViewItem4.StateImageIndex = 0;
-            listViewItem5.StateImageIndex = 0;
-            listViewItem6.StateImageIndex = 0;
+            listViewItem1.StateImageIndex = 0;
+            listViewItem2.StateImageIndex = 0;
+            listViewItem3.StateImageIndex = 0;
             this.lvFiles.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem4,
-            listViewItem5,
-            listViewItem6});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3});
             this.lvFiles.LabelEdit = true;
             this.lvFiles.LargeImageList = this.ilIcons;
             this.lvFiles.Location = new System.Drawing.Point(3, 31);
@@ -121,11 +121,13 @@
             // 
             // cbDisk
             // 
+            this.cbDisk.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDisk.Location = new System.Drawing.Point(3, 4);
             this.cbDisk.Name = "cbDisk";
             this.cbDisk.Size = new System.Drawing.Size(115, 21);
             this.cbDisk.TabIndex = 1;
             this.cbDisk.TabStop = false;
+            this.cbDisk.SelectedIndexChanged += new System.EventHandler(this.cbDisk_SelectedIndexChanged);
             // 
             // tbPath
             // 
@@ -136,6 +138,8 @@
             this.tbPath.Size = new System.Drawing.Size(409, 20);
             this.tbPath.TabIndex = 2;
             this.tbPath.TabStop = false;
+            this.tbPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbPath_KeyDown);
+            this.tbPath.Leave += new System.EventHandler(this.tbPath_Leave);
             // 
             // bBackward
             // 
@@ -173,6 +177,7 @@
             // 
             // fswObserver
             // 
+            this.fswObserver.EnableRaisingEvents = true;
             this.fswObserver.SynchronizingObject = this;
             this.fswObserver.Changed += new System.IO.FileSystemEventHandler(this.fswObserver_Changed);
             this.fswObserver.Created += new System.IO.FileSystemEventHandler(this.fswObserver_Changed);

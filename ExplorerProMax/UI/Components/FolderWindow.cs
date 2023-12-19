@@ -17,12 +17,15 @@ namespace ExplorerProMax.UI.Components
     public partial class FolderWindow : UserControl
     {
         public FileExplorer Explorer { get; private set; } = new FileExplorer();
+        public bool AtHome {  get; private set; }
         public FolderWindow()
         {
             InitializeComponent();
+            cbDisk.Items.Add(String.Empty);
             cbDisk.Items.AddRange(Explorer.GetAllDisks().Select(x => x.Name).ToArray());
             lvFiles.Items.Clear();
             bForward.Enabled = false;
+            fswObserver.EnableRaisingEvents = false;
             fswObserver.NotifyFilter = NotifyFilters.Attributes
                                  | NotifyFilters.CreationTime
                                  | NotifyFilters.DirectoryName
@@ -42,6 +45,8 @@ namespace ExplorerProMax.UI.Components
 
         public void ShowHome()
         {
+            AtHome = true;
+            cbDisk.Text = "";
             tbPath.Text = "";
             fswObserver.EnableRaisingEvents = false;
             cbDisk.Text = string.Empty;
@@ -56,7 +61,8 @@ namespace ExplorerProMax.UI.Components
                 Explorer.ChangeDirectory(path);
                 bForward.Enabled = false;
                 ShowCurrentDirectory();
-                
+                AtHome = false;
+                cbDisk.Text = Explorer.GetCurrentWorkingDisk().Name;
             }
             catch (UnauthorizedAccessException e)
             {
@@ -74,6 +80,7 @@ namespace ExplorerProMax.UI.Components
             bBackward.Enabled = true;
             fswObserver.Path = Explorer.CurrentWorkingDirectory.FullPath;
             fswObserver.EnableRaisingEvents = true;
+            cbDisk.Text = AtHome ? "" : Explorer.GetCurrentWorkingDisk().Name;
         }
 
         public void ShowFiles(IListable listable)
@@ -105,10 +112,12 @@ namespace ExplorerProMax.UI.Components
                 }
                 if (doubleClicked is ParentLink)
                 {
-                    bBackward.PerformClick();
+                    if (Explorer.CurrentWorkingDirectory.Parent is null)
+                        ShowHome();
+                    else
+                        ChangeDirectory(Explorer.CurrentWorkingDirectory.Parent);
                     bForward.Enabled = false;
                 }
-
             }
         }
 
@@ -140,6 +149,49 @@ namespace ExplorerProMax.UI.Components
         private void fswObserver_Renamed(object sender, RenamedEventArgs e)
         {
             ShowCurrentDirectory();
+        }
+
+        private void tbPath_Leave(object sender, EventArgs e)
+        {
+            tbPath.Text = AtHome ? "" : Explorer.CurrentWorkingDirectory.FullPath;
+        }
+
+        private void tbPath_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Return)
+            { return; }
+
+            if (tbPath.Text == String.Empty)
+            {
+                ShowHome();
+                return;
+            }
+
+            Core.PathEntity.DirectoryInfo path;
+            try
+            {
+                path = new Core.PathEntity.DirectoryInfo(tbPath.Text);
+                ChangeDirectory(path);
+            }
+            catch (DirectoryNotFoundException)
+            {
+                try
+                {
+                    ChangeDirectory(new Core.PathEntity.FileInfo(tbPath.Text).Parent);
+                }
+                catch
+                {
+                    tbPath.Text = AtHome ? "" : Explorer.CurrentWorkingDirectory.FullPath;
+                }
+            }
+        }
+
+        private void cbDisk_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbDisk.Text == String.Empty)
+                ShowHome();
+            else
+                ChangeDirectory(new DiskInfo(cbDisk.Text+@"\"));
         }
     }
 }
