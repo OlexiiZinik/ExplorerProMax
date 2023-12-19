@@ -1,9 +1,11 @@
 ﻿using ExplorerProMax.Core.PathEntity;
+using ExplorerProMax.UI;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -94,6 +96,43 @@ namespace ExplorerProMax.Core
                     string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
                     CopyDirectory(subDir.FullName, newDestinationDir, true);
                 }
+            }
+        }
+
+        public static void MakeDirectory(IListable location, string name, FileAttributes fileAttributes)
+        {
+            string directory = Path.Combine(location.FullPath, name);
+            if (File.Exists(directory))
+                return;
+
+            var di = Directory.CreateDirectory(directory);
+            di.Attributes = fileAttributes;
+        }
+
+        public static void MakeFile(IListable location, string name, FileAttributes fileAttributes)
+        {
+            string filename = Path.Combine(location.FullPath, name);
+            if (File.Exists(filename))
+                return;
+
+            using (File.Create(filename)) { }
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(filename);
+            fileInfo.Attributes = fileAttributes;
+        }
+        public static void RenameEntity(IPathEntity entity, string name, FileAttributes fileAttributes)
+        {
+            string newPath = Path.Combine(entity.Parent.FullPath, name);
+            if (entity is PathEntity.FileInfo)
+            {
+                File.Move((entity as PathEntity.FileInfo).FullPath, newPath);
+                System.IO.FileInfo fileInfo = new System.IO.FileInfo(newPath);
+                fileInfo.Attributes = fileAttributes;
+            }
+            else if (entity is PathEntity.DirectoryInfo)
+            {
+                Directory.Move((entity as PathEntity.DirectoryInfo).FullPath, newPath);
+                System.IO.DirectoryInfo directoryInfo = new System.IO.DirectoryInfo(newPath);
+                directoryInfo.Attributes = fileAttributes;
             }
         }
     }

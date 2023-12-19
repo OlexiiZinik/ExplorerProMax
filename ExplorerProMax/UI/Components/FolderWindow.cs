@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using FileInfo = System.IO.FileInfo;
 
@@ -21,6 +22,8 @@ namespace ExplorerProMax.UI.Components
     {
         public FileExplorer Explorer { get; private set; } = new FileExplorer();
         public bool AtHome {  get; private set; }
+
+        public List<IPathEntity> SelectedEntities => GetSelectedEntities();
 
         private ListViewColumnSorter lvwColumnSorter;
 
@@ -334,6 +337,14 @@ namespace ExplorerProMax.UI.Components
                 files.Add((IPathEntity)Explorer.CurrentWorkingDirectory);
                 ShowContextMenu(files, e.X, e.Y);
             }
+        }
+
+        public List<IPathEntity> GetSelectedEntities()
+        {
+            var entities = new List<IPathEntity>();
+            foreach (var selectedItem in lvFiles.SelectedItems)
+                entities.Add((selectedItem as ListViewObjectItem).Item);
+            return entities;
         }
     }
 }

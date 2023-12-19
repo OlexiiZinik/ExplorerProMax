@@ -1,4 +1,5 @@
 ﻿using ExplorerProMax.Core.PathEntity;
+using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -91,6 +92,23 @@ namespace ExplorerProMax.Core
             Utils.CopyFiles(files, CurrentWorkingDirectory);
         }
 
+        public void CreateDirectory(string name, FileAttributes fileAttributes)
+        {
+            if(CurrentWorkingDirectory != null)
+                Utils.MakeDirectory(CurrentWorkingDirectory, name, fileAttributes);
+        }
+
+        public void CreateFile(string name, FileAttributes fileAttributes)
+        {
+            if (CurrentWorkingDirectory != null)
+                Utils.MakeFile(CurrentWorkingDirectory, name, fileAttributes);
+        }
+        public void RenameEntity(IPathEntity entity, string name, FileAttributes fileAttributes)
+        {
+            if (CurrentWorkingDirectory != null)
+                Utils.RenameEntity(entity, name, fileAttributes);
+        }
+
         private void FillEmptyHistory()
         {
             if (path_history.Count == 0)
@@ -103,7 +121,6 @@ namespace ExplorerProMax.Core
                     parent = parent.Parent;
                 }
             }
-
         }
     }
 }

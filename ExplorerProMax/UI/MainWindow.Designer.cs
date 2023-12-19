@@ -33,10 +33,9 @@
             this.налаштуванняToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.допомогаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.tsbNewFile = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.tsbOpen = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -52,8 +51,11 @@
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbExit = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.tsbNewFile = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.folderWindow1 = new ExplorerProMax.UI.Components.FolderWindow();
             this.folderWindow2 = new ExplorerProMax.UI.Components.FolderWindow();
+            this.tsbEditAttributes = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -65,6 +67,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.налаштуванняToolStripMenuItem,
             this.допомогаToolStripMenuItem});
@@ -89,24 +92,24 @@
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsbNewFile,
             this.toolStripButton1,
             this.toolStripSeparator,
-            this.helpToolStripButton});
+            this.helpToolStripButton,
+            this.tsbEditAttributes});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1233, 25);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // tsbNewFile
+            // toolStripButton1
             // 
-            this.tsbNewFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbNewFile.Image = ((System.Drawing.Image)(resources.GetObject("tsbNewFile.Image")));
-            this.tsbNewFile.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbNewFile.Name = "tsbNewFile";
-            this.tsbNewFile.Size = new System.Drawing.Size(23, 22);
-            this.tsbNewFile.Text = "&New";
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "toolStripButton1";
             // 
             // toolStripSeparator
             // 
@@ -124,15 +127,6 @@
             this.helpToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.helpToolStripButton.Text = "He&lp";
             // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::ExplorerProMax.Properties.Resources._322497_64;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
-            // 
             // toolStrip2
             // 
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -145,6 +139,8 @@
             this.toolStripSeparator3,
             this.tsbMove,
             this.toolStripSeparator4,
+            this.tsbNewFile,
+            this.toolStripSeparator7,
             this.tsbNewFolder,
             this.toolStripSeparator5,
             this.tsbDelete,
@@ -164,6 +160,7 @@
             this.tsbOpen.Name = "tsbOpen";
             this.tsbOpen.Size = new System.Drawing.Size(63, 22);
             this.tsbOpen.Text = "Перегляд";
+            this.tsbOpen.Click += new System.EventHandler(this.tsbOpen_Click);
             // 
             // toolStripSeparator1
             // 
@@ -178,6 +175,7 @@
             this.tsbEdit.Name = "tsbEdit";
             this.tsbEdit.Size = new System.Drawing.Size(71, 22);
             this.tsbEdit.Text = "Редагувати";
+            this.tsbEdit.Click += new System.EventHandler(this.tsbEdit_Click);
             // 
             // toolStripSeparator2
             // 
@@ -192,6 +190,7 @@
             this.tsbCopy.Name = "tsbCopy";
             this.tsbCopy.Size = new System.Drawing.Size(72, 22);
             this.tsbCopy.Text = "Копійувати";
+            this.tsbCopy.Click += new System.EventHandler(this.tsbCopy_Click);
             // 
             // toolStripSeparator3
             // 
@@ -206,6 +205,7 @@
             this.tsbMove.Name = "tsbMove";
             this.tsbMove.Size = new System.Drawing.Size(81, 22);
             this.tsbMove.Text = "Перемістити";
+            this.tsbMove.Click += new System.EventHandler(this.tsbMove_Click);
             // 
             // toolStripSeparator4
             // 
@@ -220,6 +220,7 @@
             this.tsbNewFolder.Name = "tsbNewFolder";
             this.tsbNewFolder.Size = new System.Drawing.Size(65, 22);
             this.tsbNewFolder.Text = "Нова тека";
+            this.tsbNewFolder.Click += new System.EventHandler(this.tsbNewFolder_Click);
             // 
             // toolStripSeparator5
             // 
@@ -234,6 +235,7 @@
             this.tsbDelete.Name = "tsbDelete";
             this.tsbDelete.Size = new System.Drawing.Size(63, 22);
             this.tsbDelete.Text = "Видалити";
+            this.tsbDelete.Click += new System.EventHandler(this.tsbDelete_Click);
             // 
             // toolStripSeparator6
             // 
@@ -248,9 +250,11 @@
             this.tsbExit.Name = "tsbExit";
             this.tsbExit.Size = new System.Drawing.Size(40, 22);
             this.tsbExit.Text = "Вихід";
+            this.tsbExit.Click += new System.EventHandler(this.tsbExit_Click);
             // 
             // splitContainer1
             // 
+            this.splitContainer1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 49);
             this.splitContainer1.Name = "splitContainer1";
@@ -267,25 +271,54 @@
             this.splitContainer1.TabIndex = 5;
             this.splitContainer1.TabStop = false;
             // 
+            // tsbNewFile
+            // 
+            this.tsbNewFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbNewFile.Image = ((System.Drawing.Image)(resources.GetObject("tsbNewFile.Image")));
+            this.tsbNewFile.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbNewFile.Name = "tsbNewFile";
+            this.tsbNewFile.Size = new System.Drawing.Size(79, 22);
+            this.tsbNewFile.Text = "Новий файл";
+            this.tsbNewFile.Click += new System.EventHandler(this.tsbNewFile_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
+            // 
             // folderWindow1
             // 
             this.folderWindow1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.folderWindow1.Location = new System.Drawing.Point(3, 3);
+            this.folderWindow1.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.folderWindow1.Location = new System.Drawing.Point(0, 3);
             this.folderWindow1.Name = "folderWindow1";
-            this.folderWindow1.Size = new System.Drawing.Size(611, 691);
+            this.folderWindow1.Size = new System.Drawing.Size(614, 693);
             this.folderWindow1.TabIndex = 0;
+            this.folderWindow1.Enter += new System.EventHandler(this.folderWindow1_Enter);
             // 
             // folderWindow2
             // 
             this.folderWindow2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.folderWindow2.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.folderWindow2.Location = new System.Drawing.Point(3, 3);
             this.folderWindow2.Name = "folderWindow2";
-            this.folderWindow2.Size = new System.Drawing.Size(612, 690);
+            this.folderWindow2.Size = new System.Drawing.Size(612, 693);
             this.folderWindow2.TabIndex = 0;
+            this.folderWindow2.Enter += new System.EventHandler(this.folderWindow2_Enter);
+            // 
+            // tsbEditAttributes
+            // 
+            this.tsbEditAttributes.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbEditAttributes.Image = ((System.Drawing.Image)(resources.GetObject("tsbEditAttributes.Image")));
+            this.tsbEditAttributes.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbEditAttributes.Name = "tsbEditAttributes";
+            this.tsbEditAttributes.Size = new System.Drawing.Size(23, 22);
+            this.tsbEditAttributes.Text = "Властивості";
+            this.tsbEditAttributes.Click += new System.EventHandler(this.tsbEditAttributes_Click);
             // 
             // MainWindow
             // 
@@ -338,10 +371,12 @@
         private System.Windows.Forms.ToolStripButton tsbExit;
         private System.Windows.Forms.ToolStripMenuItem налаштуванняToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem допомогаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton tsbNewFile;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
         private System.Windows.Forms.ToolStripButton helpToolStripButton;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton tsbNewFile;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripButton tsbEditAttributes;
     }
 }
 
