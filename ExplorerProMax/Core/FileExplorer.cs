@@ -81,6 +81,16 @@ namespace ExplorerProMax.Core
             return new DiskInfo(dir.FullPath);
         }
 
+        public void CopyFilesToCurrentDirectory(string[] files)
+        {
+            Utils.CopyFiles(files, CurrentWorkingDirectory);
+        }
+
+        public void CopyFilesToCurrentDirectory(List<IPathEntity> files)
+        {
+            Utils.CopyFiles(files, CurrentWorkingDirectory);
+        }
+
         private void FillEmptyHistory()
         {
             if (path_history.Count == 0)

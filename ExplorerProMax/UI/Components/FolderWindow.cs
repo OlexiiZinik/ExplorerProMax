@@ -212,5 +212,42 @@ namespace ExplorerProMax.UI.Components
             else
                 ChangeDirectory(new DiskInfo(cbDisk.Text+@"\"));
         }
+
+
+        private void lvFiles_DragDrop(object sender, DragEventArgs e)
+        {
+            if (AtHome)
+            {
+                return;
+            }
+
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            Explorer.CopyFilesToCurrentDirectory(files);
+            lvFiles.BackColor = Color.White;
+            ShowCurrentDirectory();
+        }
+
+        private void lvFiles_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                if (!AtHome)
+                {
+                    lvFiles.BackColor = Color.DeepSkyBlue;
+                    e.Effect = DragDropEffects.Copy;
+                }
+                else
+                {
+                    lvFiles.BackColor = Color.Red;
+                    e.Effect = DragDropEffects.None;
+                }
+
+            }
+        }
+
+        private void lvFiles_DragLeave(object sender, EventArgs e)
+        {
+            lvFiles.BackColor = Color.White;
+        }
     }
 }
