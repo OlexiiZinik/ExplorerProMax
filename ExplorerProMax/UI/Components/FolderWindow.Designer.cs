@@ -36,15 +36,15 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ilIconsLarge = new System.Windows.Forms.ImageList(this.components);
+            this.ilIconsSmall = new System.Windows.Forms.ImageList(this.components);
             this.cbDisk = new System.Windows.Forms.ComboBox();
             this.tbPath = new System.Windows.Forms.TextBox();
             this.bBackward = new System.Windows.Forms.Button();
             this.bForward = new System.Windows.Forms.Button();
             this.fswObserver = new System.IO.FileSystemWatcher();
-            this.ilIconsSmall = new System.Windows.Forms.ImageList(this.components);
             this.cbView = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.ilIconsLarge = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.fswObserver)).BeginInit();
             this.SuspendLayout();
             // 
@@ -78,6 +78,7 @@
             this.lvFiles.DragLeave += new System.EventHandler(this.lvFiles_DragLeave);
             this.lvFiles.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lvFiles_MouseClick);
             this.lvFiles.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvFiles_MouseDoubleClick);
+            this.lvFiles.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lvFiles_MouseDown);
             // 
             // columnHeader1
             // 
@@ -103,6 +104,26 @@
             // 
             this.columnHeader5.Text = "Атрибути";
             this.columnHeader5.Width = 75;
+            // 
+            // ilIconsLarge
+            // 
+            this.ilIconsLarge.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilIconsLarge.ImageStream")));
+            this.ilIconsLarge.TransparentColor = System.Drawing.Color.Transparent;
+            this.ilIconsLarge.Images.SetKeyName(0, "Ex.png");
+            this.ilIconsLarge.Images.SetKeyName(1, "folder.ico");
+            this.ilIconsLarge.Images.SetKeyName(2, "prev.png");
+            this.ilIconsLarge.Images.SetKeyName(3, "imageres_32.ico");
+            this.ilIconsLarge.Images.SetKeyName(4, "imageres_36.ico");
+            // 
+            // ilIconsSmall
+            // 
+            this.ilIconsSmall.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilIconsSmall.ImageStream")));
+            this.ilIconsSmall.TransparentColor = System.Drawing.Color.Transparent;
+            this.ilIconsSmall.Images.SetKeyName(0, "Ex.png");
+            this.ilIconsSmall.Images.SetKeyName(1, "folder.ico");
+            this.ilIconsSmall.Images.SetKeyName(2, "prev.png");
+            this.ilIconsSmall.Images.SetKeyName(3, "imageres_32.ico");
+            this.ilIconsSmall.Images.SetKeyName(4, "imageres_36.ico");
             // 
             // cbDisk
             // 
@@ -159,16 +180,6 @@
             this.fswObserver.Deleted += new System.IO.FileSystemEventHandler(this.fswObserver_Changed);
             this.fswObserver.Renamed += new System.IO.RenamedEventHandler(this.fswObserver_Renamed);
             // 
-            // ilIconsSmall
-            // 
-            this.ilIconsSmall.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilIconsSmall.ImageStream")));
-            this.ilIconsSmall.TransparentColor = System.Drawing.Color.Transparent;
-            this.ilIconsSmall.Images.SetKeyName(0, "Ex.png");
-            this.ilIconsSmall.Images.SetKeyName(1, "folder.ico");
-            this.ilIconsSmall.Images.SetKeyName(2, "prev.png");
-            this.ilIconsSmall.Images.SetKeyName(3, "imageres_32.ico");
-            this.ilIconsSmall.Images.SetKeyName(4, "imageres_36.ico");
-            // 
             // cbView
             // 
             this.cbView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -192,16 +203,6 @@
             this.label1.Size = new System.Drawing.Size(46, 13);
             this.label1.TabIndex = 6;
             this.label1.Text = "Вигляд:";
-            // 
-            // ilIconsLarge
-            // 
-            this.ilIconsLarge.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilIconsLarge.ImageStream")));
-            this.ilIconsLarge.TransparentColor = System.Drawing.Color.Transparent;
-            this.ilIconsLarge.Images.SetKeyName(0, "Ex.png");
-            this.ilIconsLarge.Images.SetKeyName(1, "folder.ico");
-            this.ilIconsLarge.Images.SetKeyName(2, "prev.png");
-            this.ilIconsLarge.Images.SetKeyName(3, "imageres_32.ico");
-            this.ilIconsLarge.Images.SetKeyName(4, "imageres_36.ico");
             // 
             // FolderWindow
             // 

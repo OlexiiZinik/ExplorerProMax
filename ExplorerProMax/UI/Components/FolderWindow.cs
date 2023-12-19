@@ -299,21 +299,40 @@ namespace ExplorerProMax.UI.Components
                 lvFiles.View = View.Details;
         }
 
+        private void ShowContextMenu(List<IPathEntity> entitys, int X, int Y)
+        {
+            ShellContextMenu ctxMnu = new ShellContextMenu();
+            FileSystemInfo[] fsi = new FileSystemInfo[entitys.Count];
+            for (int i = 0; i < entitys.Count; i++)
+            {
+                if (entitys[i] is Core.PathEntity.FileInfo)
+                    fsi[i] = new System.IO.FileInfo(entitys[i].FullPath);
+                else if (entitys[i] is Core.PathEntity.DirectoryInfo)
+                    fsi[i] = new System.IO.DirectoryInfo(entitys[i].FullPath);
+                else if (entitys[i] is Core.PathEntity.DiskInfo)
+                    return;
+            }
+            ctxMnu.ShowContextMenu(fsi, this.PointToScreen(new Point(X + 5, Y + 35)));
+        }
+
         private void lvFiles_MouseClick(object sender, MouseEventArgs e)
         {
             if(!AtHome && e.Button == MouseButtons.Right)
             {
-                ShellContextMenu ctxMnu = new ShellContextMenu();
-                FileSystemInfo[] fsi = new FileSystemInfo[lvFiles.SelectedItems.Count];
-                for (int i = 0; i < lvFiles.SelectedItems.Count; i++)
-                {
-                    ListViewObjectItem lvoi = lvFiles.SelectedItems[i] as ListViewObjectItem;
-                    if (lvoi.Item is Core.PathEntity.FileInfo)
-                        fsi[i] = new System.IO.FileInfo(lvoi.Item.FullPath);
-                    else if(lvoi.Item is Core.PathEntity.DirectoryInfo)
-                        fsi[i] = new System.IO.DirectoryInfo(lvoi.Item.FullPath);
-                }
-                ctxMnu.ShowContextMenu(fsi, this.PointToScreen(new Point(e.X + 5, e.Y + 35)));
+                var files = new List<IPathEntity>();
+                foreach (var selectedItem in lvFiles.SelectedItems)
+                    files.Add((selectedItem as ListViewObjectItem).Item);
+                ShowContextMenu(files, e.X,e.Y);
+            }
+        }
+
+        private void lvFiles_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (!AtHome && e.Button == MouseButtons.Right && lvFiles.SelectedItems.Count == 0)
+            {
+                var files = new List<IPathEntity>();
+                files.Add((IPathEntity)Explorer.CurrentWorkingDirectory);
+                ShowContextMenu(files, e.X, e.Y);
             }
         }
     }
