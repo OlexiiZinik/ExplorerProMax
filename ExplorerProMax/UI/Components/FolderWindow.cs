@@ -26,7 +26,7 @@ namespace ExplorerProMax.UI.Components
             InitializeComponent();
             lvwColumnSorter = new ListViewColumnSorter();
             this.lvFiles.ListViewItemSorter = lvwColumnSorter;
-
+            cbView.SelectedIndex = 0;
             cbDisk.Items.Add(String.Empty);
             cbDisk.Items.AddRange(Explorer.GetAllDisks().Select(x => x.Name).ToArray());
             lvFiles.Items.Clear();
@@ -99,7 +99,10 @@ namespace ExplorerProMax.UI.Components
         {
             lvFiles.Items.Clear();
             for (int i = 5; i < lvFiles.Items.Count; i++)
-                ilIcons.Images.RemoveAt(i);
+            {
+                ilIconsSmall.Images.RemoveAt(i);
+                ilIconsLarge.Images.RemoveAt(i);
+            }
 
             foreach (IPathEntity entity in files)
             {
@@ -115,8 +118,10 @@ namespace ExplorerProMax.UI.Components
                         record.ImageIndex = 3;
                 else
                 {
-                    ilIcons.Images.Add(Icon.ExtractAssociatedIcon(entity.FullPath));
-                    record.ImageIndex = ilIcons.Images.Count - 1;
+                    var icon = Icon.ExtractAssociatedIcon(entity.FullPath);
+                    ilIconsSmall.Images.Add(icon);
+                    ilIconsLarge.Images.Add(icon);
+                    record.ImageIndex = ilIconsSmall.Images.Count - 1;
                 }
                 
                 lvFiles.Items.Add(record);
@@ -280,6 +285,16 @@ namespace ExplorerProMax.UI.Components
 
             // Perform the sort with these new sort options.
             this.lvFiles.Sort();
+        }
+
+        private void cbView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cbView.SelectedIndex == 0) 
+                lvFiles.View = View.Details;
+            else if(cbView.SelectedIndex == 1)
+                lvFiles.View = View.LargeIcon;
+            else
+                lvFiles.View = View.Details;
         }
     }
 }

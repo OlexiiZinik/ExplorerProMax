@@ -41,7 +41,10 @@
             this.bBackward = new System.Windows.Forms.Button();
             this.bForward = new System.Windows.Forms.Button();
             this.fswObserver = new System.IO.FileSystemWatcher();
-            this.ilIcons = new System.Windows.Forms.ImageList(this.components);
+            this.ilIconsSmall = new System.Windows.Forms.ImageList(this.components);
+            this.cbView = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.ilIconsLarge = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.fswObserver)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,11 +64,11 @@
             this.lvFiles.FullRowSelect = true;
             this.lvFiles.HideSelection = false;
             this.lvFiles.LabelEdit = true;
-            this.lvFiles.LargeImageList = this.ilIcons;
+            this.lvFiles.LargeImageList = this.ilIconsLarge;
             this.lvFiles.Location = new System.Drawing.Point(3, 31);
             this.lvFiles.Name = "lvFiles";
-            this.lvFiles.Size = new System.Drawing.Size(597, 657);
-            this.lvFiles.SmallImageList = this.ilIcons;
+            this.lvFiles.Size = new System.Drawing.Size(597, 630);
+            this.lvFiles.SmallImageList = this.ilIconsSmall;
             this.lvFiles.TabIndex = 0;
             this.lvFiles.UseCompatibleStateImageBehavior = false;
             this.lvFiles.View = System.Windows.Forms.View.Details;
@@ -155,20 +158,56 @@
             this.fswObserver.Deleted += new System.IO.FileSystemEventHandler(this.fswObserver_Changed);
             this.fswObserver.Renamed += new System.IO.RenamedEventHandler(this.fswObserver_Renamed);
             // 
-            // ilIcons
+            // ilIconsSmall
             // 
-            this.ilIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilIcons.ImageStream")));
-            this.ilIcons.TransparentColor = System.Drawing.Color.Transparent;
-            this.ilIcons.Images.SetKeyName(0, "Ex.png");
-            this.ilIcons.Images.SetKeyName(1, "folder.ico");
-            this.ilIcons.Images.SetKeyName(2, "prev.png");
-            this.ilIcons.Images.SetKeyName(3, "imageres_32.ico");
-            this.ilIcons.Images.SetKeyName(4, "imageres_36.ico");
+            this.ilIconsSmall.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilIconsSmall.ImageStream")));
+            this.ilIconsSmall.TransparentColor = System.Drawing.Color.Transparent;
+            this.ilIconsSmall.Images.SetKeyName(0, "Ex.png");
+            this.ilIconsSmall.Images.SetKeyName(1, "folder.ico");
+            this.ilIconsSmall.Images.SetKeyName(2, "prev.png");
+            this.ilIconsSmall.Images.SetKeyName(3, "imageres_32.ico");
+            this.ilIconsSmall.Images.SetKeyName(4, "imageres_36.ico");
+            // 
+            // cbView
+            // 
+            this.cbView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbView.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbView.Items.AddRange(new object[] {
+            "Детально",
+            "Великі іконки"});
+            this.cbView.Location = new System.Drawing.Point(485, 667);
+            this.cbView.Name = "cbView";
+            this.cbView.Size = new System.Drawing.Size(115, 21);
+            this.cbView.TabIndex = 5;
+            this.cbView.TabStop = false;
+            this.cbView.SelectedIndexChanged += new System.EventHandler(this.cbView_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(436, 670);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Вигляд:";
+            // 
+            // ilIconsLarge
+            // 
+            this.ilIconsLarge.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilIconsLarge.ImageStream")));
+            this.ilIconsLarge.TransparentColor = System.Drawing.Color.Transparent;
+            this.ilIconsLarge.Images.SetKeyName(0, "Ex.png");
+            this.ilIconsLarge.Images.SetKeyName(1, "folder.ico");
+            this.ilIconsLarge.Images.SetKeyName(2, "prev.png");
+            this.ilIconsLarge.Images.SetKeyName(3, "imageres_32.ico");
+            this.ilIconsLarge.Images.SetKeyName(4, "imageres_36.ico");
             // 
             // FolderWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.cbView);
             this.Controls.Add(this.bForward);
             this.Controls.Add(this.bBackward);
             this.Controls.Add(this.tbPath);
@@ -196,6 +235,9 @@
         private System.Windows.Forms.Button bForward;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.IO.FileSystemWatcher fswObserver;
-        private System.Windows.Forms.ImageList ilIcons;
+        private System.Windows.Forms.ImageList ilIconsSmall;
+        private System.Windows.Forms.ComboBox cbView;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ImageList ilIconsLarge;
     }
 }
