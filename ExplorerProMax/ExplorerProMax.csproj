@@ -64,6 +64,7 @@
     <Compile Include="Core\PathEntity\ParentLink.cs" />
     <Compile Include="Core\Utils.cs" />
     <Compile Include="UI\Components\ListViewColumnSorter .cs" />
+    <Compile Include="UI\Explorer Shell Context Menu.cs" />
     <Compile Include="UI\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>

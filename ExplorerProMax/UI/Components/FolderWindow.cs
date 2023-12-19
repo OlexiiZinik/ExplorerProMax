@@ -1,9 +1,11 @@
 ﻿using ExplorerProMax.Core;
 using ExplorerProMax.Core.PathEntity;
+using Peter;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -11,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using FileInfo = System.IO.FileInfo;
 
 namespace ExplorerProMax.UI.Components
 {
@@ -140,13 +143,20 @@ namespace ExplorerProMax.UI.Components
                 {
                     ChangeDirectory(doubleClicked as IListable);
                 }
-                if (doubleClicked is ParentLink)
+                else if (doubleClicked is ParentLink)
                 {
                     if (Explorer.CurrentWorkingDirectory.Parent is null)
                         ShowHome();
                     else
                         ChangeDirectory(Explorer.CurrentWorkingDirectory.Parent);
                     bForward.Enabled = false;
+                }
+                else if(doubleClicked is Core.PathEntity.FileInfo)
+                {
+                    ProcessStartInfo info = new ProcessStartInfo();
+                    info.FileName = (doubleClicked as Core.PathEntity.FileInfo).FullPath;
+
+                    Process.Start(info);
                 }
             }
         }
@@ -263,27 +273,19 @@ namespace ExplorerProMax.UI.Components
 
         private void lvFiles_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            // Determine if clicked column is already the column that is being sorted.
             if (e.Column == lvwColumnSorter.SortColumn)
             {
-                // Reverse the current sort direction for this column.
                 if (lvwColumnSorter.Order == SortOrder.Ascending)
-                {
                     lvwColumnSorter.Order = SortOrder.Descending;
-                }
                 else
-                {
                     lvwColumnSorter.Order = SortOrder.Ascending;
-                }
             }
             else
             {
-                // Set the column number that is to be sorted; default to ascending.
                 lvwColumnSorter.SortColumn = e.Column;
                 lvwColumnSorter.Order = SortOrder.Ascending;
             }
 
-            // Perform the sort with these new sort options.
             this.lvFiles.Sort();
         }
 
@@ -295,6 +297,24 @@ namespace ExplorerProMax.UI.Components
                 lvFiles.View = View.LargeIcon;
             else
                 lvFiles.View = View.Details;
+        }
+
+        private void lvFiles_MouseClick(object sender, MouseEventArgs e)
+        {
+            if(!AtHome && e.Button == MouseButtons.Right)
+            {
+                ShellContextMenu ctxMnu = new ShellContextMenu();
+                FileSystemInfo[] fsi = new FileSystemInfo[lvFiles.SelectedItems.Count];
+                for (int i = 0; i < lvFiles.SelectedItems.Count; i++)
+                {
+                    ListViewObjectItem lvoi = lvFiles.SelectedItems[i] as ListViewObjectItem;
+                    if (lvoi.Item is Core.PathEntity.FileInfo)
+                        fsi[i] = new System.IO.FileInfo(lvoi.Item.FullPath);
+                    else if(lvoi.Item is Core.PathEntity.DirectoryInfo)
+                        fsi[i] = new System.IO.DirectoryInfo(lvoi.Item.FullPath);
+                }
+                ctxMnu.ShowContextMenu(fsi, this.PointToScreen(new Point(e.X + 5, e.Y + 35)));
+            }
         }
     }
 }
