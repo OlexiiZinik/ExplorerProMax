@@ -14,7 +14,8 @@ namespace ExplorerProMax.Core.PathEntity
         public EntityType Type => EntityType.DIRECTORY;
 
         public string FullPath { get; private set; }
-
+        public DateTime LastEdited => new System.IO.DirectoryInfo(FullPath).LastWriteTime;
+        public FileAttributes Attributes => new System.IO.DirectoryInfo(FullPath).Attributes;
         public IListable Parent => Utils.GetParent(this);
 
         public DirectoryInfo() { }

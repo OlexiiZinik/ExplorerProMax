@@ -28,18 +28,30 @@ namespace ExplorerProMax.UI.Components
             {
                 this.SubItems.Add(new ListViewSubItem(this, (Item as FileInfo).Extention.ToUpper()));
                 this.SubItems.Add(new ListViewSubItem(this, Utils.SizeToString((Item as FileInfo).Size)));
-                this.SubItems.Add(new ListViewSubItem(this, "123"));
+                this.SubItems.Add(new ListViewSubItem(this, (Item as FileInfo).LastEdited.ToString("yyyy/MM/dd HH:mm:ss")));
+                this.SubItems.Add(new ListViewSubItem(this, String.Join("", (Item as FileInfo).Attributes.ToString().Where(c=> !Char.IsLower(c)))));
             }
             
             else if (pathEntity is DirectoryInfo)
             {
                 this.SubItems.Add(new ListViewSubItem(this, "Directory"));
+                this.SubItems.Add(new ListViewSubItem(this, ""));
+                this.SubItems.Add(new ListViewSubItem(this, (Item as DirectoryInfo).LastEdited.ToString("yyyy/MM/dd HH:mm:ss")));
+                this.SubItems.Add(new ListViewSubItem(this, String.Join("", (Item as DirectoryInfo).Attributes.ToString().Where(c => !Char.IsLower(c)))));
             }
             else if (pathEntity is DiskInfo) 
             {
                 this.SubItems.Add(new ListViewSubItem(this, "Drive"));
                 this.SubItems.Add(new ListViewSubItem(this, $"{Utils.SizeToString((Item as DiskInfo).FreeSpace)} вільно з {Utils.SizeToString((Item as DiskInfo).Size)}"));
-                this.SubItems.Add(new ListViewSubItem(this, "123"));
+                this.SubItems.Add(new ListViewSubItem(this, ""));
+                this.SubItems.Add(new ListViewSubItem(this, ""));
+            }
+            else if (pathEntity is ParentLink)
+            {
+                this.SubItems.Add(new ListViewSubItem(this, ".."));
+                this.SubItems.Add(new ListViewSubItem(this, $""));
+                this.SubItems.Add(new ListViewSubItem(this, ""));
+                this.SubItems.Add(new ListViewSubItem(this, ""));
             }
         }
     }

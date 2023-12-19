@@ -17,7 +17,8 @@ namespace ExplorerProMax.Core.PathEntity
         public EntityType Type => EntityType.FILE;
         public string Name { get => GetName(); }
         public string FullName { get => FullPath.Split(@"\/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Last(); }
-
+        public DateTime LastEdited => new System.IO.FileInfo(FullPath).LastWriteTime;
+        public FileAttributes Attributes => new System.IO.FileInfo(FullPath).Attributes;
         public long Size => new System.IO.FileInfo(FullPath).Length;
 
         public IListable Parent => Utils.GetParent(this);

@@ -18,9 +18,15 @@ namespace ExplorerProMax.UI.Components
     {
         public FileExplorer Explorer { get; private set; } = new FileExplorer();
         public bool AtHome {  get; private set; }
+
+        private ListViewColumnSorter lvwColumnSorter;
+
         public FolderWindow()
         {
             InitializeComponent();
+            lvwColumnSorter = new ListViewColumnSorter();
+            this.lvFiles.ListViewItemSorter = lvwColumnSorter;
+
             cbDisk.Items.Add(String.Empty);
             cbDisk.Items.AddRange(Explorer.GetAllDisks().Select(x => x.Name).ToArray());
             lvFiles.Items.Clear();
@@ -248,6 +254,32 @@ namespace ExplorerProMax.UI.Components
         private void lvFiles_DragLeave(object sender, EventArgs e)
         {
             lvFiles.BackColor = Color.White;
+        }
+
+        private void lvFiles_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            // Determine if clicked column is already the column that is being sorted.
+            if (e.Column == lvwColumnSorter.SortColumn)
+            {
+                // Reverse the current sort direction for this column.
+                if (lvwColumnSorter.Order == SortOrder.Ascending)
+                {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                lvwColumnSorter.SortColumn = e.Column;
+                lvwColumnSorter.Order = SortOrder.Ascending;
+            }
+
+            // Perform the sort with these new sort options.
+            this.lvFiles.Sort();
         }
     }
 }
