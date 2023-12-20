@@ -65,12 +65,23 @@ namespace ExplorerProMax.UI
 
         private void tsbCopy_Click(object sender, EventArgs e)
         {
+            var focusedFolderWindow = GetFocusedFolderWindow();
+            var unfocusedFolderWindow = GetUnFocusedFolderWindow();
+            if (focusedFolderWindow.AtHome || focusedFolderWindow.AtHome)
+                return;
 
+            unfocusedFolderWindow.Explorer.CopyFilesToCurrentDirectory(focusedFolderWindow.SelectedEntities);
         }
 
         private void tsbMove_Click(object sender, EventArgs e)
         {
 
+            var focusedFolderWindow = GetFocusedFolderWindow();
+            var unfocusedFolderWindow = GetUnFocusedFolderWindow();
+            if (focusedFolderWindow.AtHome || focusedFolderWindow.AtHome)
+                return;
+
+            unfocusedFolderWindow.Explorer.MoveFilesToCurrentDirectory(focusedFolderWindow.SelectedEntities);
         }
 
         private void tsbEditAttributes_Click(object sender, EventArgs e)
@@ -95,7 +106,10 @@ namespace ExplorerProMax.UI
 
         private void tsbDelete_Click(object sender, EventArgs e)
         {
-
+            var currentFolderWindow = GetFocusedFolderWindow();
+            if (currentFolderWindow.AtHome)
+                return;
+            currentFolderWindow.Explorer.DeleteEntities(currentFolderWindow.SelectedEntities);
         }
 
         private void tsbExit_Click(object sender, EventArgs e)

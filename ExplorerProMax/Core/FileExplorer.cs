@@ -81,15 +81,25 @@ namespace ExplorerProMax.Core
             }
             return new DiskInfo(dir.FullPath);
         }
-
+        public void DeleteEntities(List<IPathEntity> files)
+        {
+            Utils.DeleteEntities(files);
+        }
+        public void MoveFilesToCurrentDirectory(List<IPathEntity> files)
+        {
+            if (CurrentWorkingDirectory != null)
+                Utils.MoveFiles(files, CurrentWorkingDirectory);
+        }
         public void CopyFilesToCurrentDirectory(string[] files)
         {
-            Utils.CopyFiles(files, CurrentWorkingDirectory);
+            if (CurrentWorkingDirectory != null)
+                Utils.CopyFiles(files, CurrentWorkingDirectory);
         }
 
         public void CopyFilesToCurrentDirectory(List<IPathEntity> files)
         {
-            Utils.CopyFiles(files, CurrentWorkingDirectory);
+            if (CurrentWorkingDirectory != null)
+                Utils.CopyFiles(files, CurrentWorkingDirectory);
         }
 
         public void CreateDirectory(string name, FileAttributes fileAttributes)

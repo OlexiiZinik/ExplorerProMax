@@ -40,6 +40,43 @@ namespace ExplorerProMax.Core
             return new PathEntity.DirectoryInfo(String.Join(@"\", splitedPath.Take(splitedPath.Length - 1)) + @"\");
         }
 
+        public static void MoveFiles(List<IPathEntity> files, IListable destination)
+        {
+            foreach (var file in files)
+            {
+                try
+                {
+                    if (file is PathEntity.FileInfo)
+                        MoveFile(file, destination);
+
+                    else if (file is PathEntity.DirectoryInfo)
+                        MoveDirectory(file, destination);
+                }
+                catch { }
+            }
+        }
+
+        public static void MoveFile(IPathEntity file, IListable destination)
+        {
+            if (!(file is PathEntity.FileInfo))
+                return;
+
+            string newFilePath = Path.Combine(destination.FullPath, (file as PathEntity.FileInfo).FullName);
+
+            if (!File.Exists(newFilePath))
+                File.Move(file.FullPath, newFilePath);
+        }
+        public static void MoveDirectory(IPathEntity directory, IListable destination)
+        {
+            if (!(directory is PathEntity.DirectoryInfo))
+                return;
+
+            string newDirectoryPath = Path.Combine(destination.FullPath, (directory as PathEntity.DirectoryInfo).Name);
+            if (!Directory.Exists(newDirectoryPath))
+                Directory.Move(directory.FullPath, newDirectoryPath);
+
+        }
+
         public static void CopyFiles(string[] files, IListable destination)
         {
             List<IPathEntity> entities = new List<IPathEntity>();
@@ -133,6 +170,19 @@ namespace ExplorerProMax.Core
                 Directory.Move((entity as PathEntity.DirectoryInfo).FullPath, newPath);
                 System.IO.DirectoryInfo directoryInfo = new System.IO.DirectoryInfo(newPath);
                 directoryInfo.Attributes = fileAttributes;
+            }
+        }
+        public static void DeleteEntities(List<IPathEntity> files)
+        {
+            foreach (IPathEntity entity in files)
+            {
+                try { 
+                    if (entity is PathEntity.DirectoryInfo)
+                        Directory.Delete(entity.FullPath);
+                    else if (entity is PathEntity.FileInfo)
+                        File.Delete(entity.FullPath);
+                }
+                catch { }
             }
         }
     }
