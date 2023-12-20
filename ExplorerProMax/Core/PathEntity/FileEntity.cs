@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace ExplorerProMax.Core.PathEntity
 {
-    public class FileEntity : IPathEntity
+    public class FileEntity : IFileSystemEntity
     {
         public string FullPath { get; private set; }
         public string Location { get => GetLocation(); }

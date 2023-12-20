@@ -14,7 +14,7 @@ namespace ExplorerProMax.Core.PathEntity
         PARENT_DIR,
     }
 
-    public interface IPathEntity
+    public interface IFileSystemEntity
     {
         string Name { get; }
         EntityType Type { get; }

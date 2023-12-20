@@ -22,7 +22,7 @@ namespace ExplorerProMax.UI
     public partial class EditEntity : Form
     {
         public EditEntityOptions Options { get; private set; }
-        public IPathEntity CurrentWorkingEntity { get; private set; }
+        public IFileSystemEntity CurrentWorkingEntity { get; private set; }
         public FileExplorer Explorer { get; private set; }
 
 
@@ -47,7 +47,7 @@ namespace ExplorerProMax.UI
 
             lLocation.Text = explorer.CurrentWorkingDirectory.FullPath;
         }
-        public EditEntity(FileExplorer explorer, IPathEntity entity) : this(explorer)
+        public EditEntity(FileExplorer explorer, IFileSystemEntity entity) : this(explorer)
         {
 
             if (entity is FileEntity)

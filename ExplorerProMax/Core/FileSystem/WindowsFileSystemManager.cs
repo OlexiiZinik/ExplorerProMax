@@ -16,9 +16,9 @@ namespace ExplorerProMax.Core.FileSystem
     {
         public WindowsFileSystemManager() { }
 
-        public override List<IPathEntity> ListDirectory(IListable directory)
+        public override List<IFileSystemEntity> ListDirectory(IListable directory)
         {
-            var result = new List<IPathEntity>();
+            var result = new List<IFileSystemEntity>();
             var files = Directory.GetFiles(directory.FullPath);
             var directoris = Directory.GetDirectories(directory.FullPath);
             result.Add(new ParentLink(directory));
@@ -34,7 +34,7 @@ namespace ExplorerProMax.Core.FileSystem
             return result;
         }
       
-        public override IListable GetParent(IPathEntity pathEntity)
+        public override IListable GetParent(IFileSystemEntity pathEntity)
         {
             var splitedPath = pathEntity.FullPath.Split(@"/\".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             if (splitedPath.Length <= 1)
@@ -44,7 +44,7 @@ namespace ExplorerProMax.Core.FileSystem
             return new PathEntity.DirectoryEntity(string.Join(@"\", splitedPath.Take(splitedPath.Length - 1)) + @"\");
         }
        
-        public override void MoveFiles(List<IPathEntity> files, IListable destination)
+        public override void MoveFiles(List<IFileSystemEntity> files, IListable destination)
         {
             foreach (var file in files)
             {
@@ -60,7 +60,7 @@ namespace ExplorerProMax.Core.FileSystem
             }
         }
        
-        public override void MoveFile(IPathEntity file, IListable destination)
+        public override void MoveFile(IFileSystemEntity file, IListable destination)
         {
             if (!(file is PathEntity.FileEntity))
                 return;
@@ -71,7 +71,7 @@ namespace ExplorerProMax.Core.FileSystem
                 File.Move(file.FullPath, newFilePath);
         }
         
-        public override void MoveDirectory(IPathEntity directory, IListable destination)
+        public override void MoveDirectory(IFileSystemEntity directory, IListable destination)
         {
             if (!(directory is PathEntity.DirectoryEntity))
                 return;
@@ -84,7 +84,7 @@ namespace ExplorerProMax.Core.FileSystem
         
         public override void CopyFiles(string[] files, IListable destination)
         {
-            List<IPathEntity> entities = new List<IPathEntity>();
+            List<IFileSystemEntity> entities = new List<IFileSystemEntity>();
             foreach (var file in files)
             {
                 if (File.Exists(file))
@@ -99,7 +99,7 @@ namespace ExplorerProMax.Core.FileSystem
             CopyFiles(entities, destination);
         }
         
-        public override void CopyFiles(List<IPathEntity> files, IListable destination)
+        public override void CopyFiles(List<IFileSystemEntity> files, IListable destination)
         {
             foreach (var file in files)
             {
@@ -163,7 +163,7 @@ namespace ExplorerProMax.Core.FileSystem
             fileInfo.Attributes = fileAttributes;
         }
         
-        public override void RenameEntity(IPathEntity entity, string name, FileAttributes fileAttributes)
+        public override void RenameEntity(IFileSystemEntity entity, string name, FileAttributes fileAttributes)
         {
             string newPath = Path.Combine(entity.Parent.FullPath, name);
             if (entity is PathEntity.FileEntity)
@@ -180,9 +180,9 @@ namespace ExplorerProMax.Core.FileSystem
             }
         }
         
-        public override void DeleteEntities(List<IPathEntity> files)
+        public override void DeleteEntities(List<IFileSystemEntity> files)
         {
-            foreach (IPathEntity entity in files)
+            foreach (IFileSystemEntity entity in files)
             {
                 try
                 {
@@ -195,14 +195,14 @@ namespace ExplorerProMax.Core.FileSystem
             }
         }
         
-        public override List<IPathEntity> Search(IListable location, string pattern, bool includeSubDirectories, bool strictSearch)
+        public override List<IFileSystemEntity> Search(IListable location, string pattern, bool includeSubDirectories, bool strictSearch)
         {
             return GetFiles(location.FullPath, pattern, includeSubDirectories, strictSearch);
         }
         
-        private List<IPathEntity> GetFiles(string path, string pattern, bool includeSubDirectories, bool strictSearch)
+        private List<IFileSystemEntity> GetFiles(string path, string pattern, bool includeSubDirectories, bool strictSearch)
         {
-            var files = new List<IPathEntity>();
+            var files = new List<IFileSystemEntity>();
             var dirInfo = new DirectoryInfo(path);
 
             if (path.Split(@"/\".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Length > 1 && dirInfo.Attributes.HasFlag(FileAttributes.System))

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ExplorerProMax.Core.PathEntity
 {
-    public class DriveEntity : IPathEntity, IListable
+    public class DriveEntity : IFileSystemEntity, IListable
     {
         public string FullPath { get; private set; }
         public string Name => FullPath.Replace(@"\", "");
@@ -29,7 +29,7 @@ namespace ExplorerProMax.Core.PathEntity
                     throw new DriveNotFoundException($"Disk \"{fullPath}\" Does not exist");
             }
         }
-        public List<IPathEntity> ListDirectory()
+        public List<IFileSystemEntity> ListDirectory()
         {
             return Utils.FSManager.ListDirectory(this);
         }

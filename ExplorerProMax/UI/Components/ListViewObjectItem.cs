@@ -10,9 +10,9 @@ namespace ExplorerProMax.UI.Components
 {
     public class ListViewObjectItem : ListViewItem
     {
-        public IPathEntity Item { get; private set; }
+        public IFileSystemEntity Item { get; private set; }
 
-        public ListViewObjectItem(IPathEntity pathEntity) : base()
+        public ListViewObjectItem(IFileSystemEntity pathEntity) : base()
         {
             Item = pathEntity;
             if (pathEntity is FileEntity ||  pathEntity is DirectoryEntity || pathEntity is ParentLink)

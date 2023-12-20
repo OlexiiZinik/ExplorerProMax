@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ExplorerProMax.Core.PathEntity
 {
-    public class ParentLink : IPathEntity
+    public class ParentLink : IFileSystemEntity
     {
         public string Name => "..";
 

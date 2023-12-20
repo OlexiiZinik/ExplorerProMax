@@ -9,7 +9,7 @@ namespace ExplorerProMax.Core.PathEntity
     public interface IListable
     {
         string FullPath { get; }
-        List<IPathEntity> ListDirectory();
+        List<IFileSystemEntity> ListDirectory();
         IListable Parent { get; }
     }
 }

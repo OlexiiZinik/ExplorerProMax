@@ -22,7 +22,7 @@ namespace ExplorerProMax.UI.Components
         public FileExplorer Explorer { get; private set; } = new FileExplorer();
         public bool AtHome {  get; private set; }
 
-        public List<IPathEntity> SelectedEntities => GetSelectedEntities();
+        public List<IFileSystemEntity> SelectedEntities => GetSelectedEntities();
 
         private ListViewColumnSorter lvwColumnSorter;
 
@@ -63,7 +63,7 @@ namespace ExplorerProMax.UI.Components
             fswObserver.EnableRaisingEvents = false;
             cbDisk.Text = string.Empty;
             bBackward.Enabled = false;
-            ShowFiles(Explorer.GetAllDisks().Cast<IPathEntity>().ToList());
+            ShowFiles(Explorer.GetAllDisks().Cast<IFileSystemEntity>().ToList());
         }
 
         public void ChangeDirectory(IListable path)
@@ -100,7 +100,7 @@ namespace ExplorerProMax.UI.Components
             ShowFiles(listable.ListDirectory());
         }
 
-        public void ShowFiles(List<IPathEntity> files)
+        public void ShowFiles(List<IFileSystemEntity> files)
         {
             lvFiles.Items.Clear();
             for (int i = 5; i < ilIconsSmall.Images.Count; i++)
@@ -109,7 +109,7 @@ namespace ExplorerProMax.UI.Components
                 ilIconsLarge.Images.RemoveAt(i);
             }
 
-            foreach (IPathEntity entity in files)
+            foreach (IFileSystemEntity entity in files)
             {
                 var record = new ListViewObjectItem(entity);
                 if (entity is ParentLink)
@@ -134,7 +134,7 @@ namespace ExplorerProMax.UI.Components
             }
         }
 
-        public void ShowSearchResult(List<IPathEntity> files)
+        public void ShowSearchResult(List<IFileSystemEntity> files)
         {
             fswObserver.EnableRaisingEvents = false;
             ShowFiles(files);
@@ -150,7 +150,7 @@ namespace ExplorerProMax.UI.Components
         }
         private void OpenSelectedFileOrDirectory()
         {
-            IPathEntity selectedItem = SelectedEntities.First();
+            IFileSystemEntity selectedItem = SelectedEntities.First();
             if (selectedItem == null)
                 return;
 
@@ -172,7 +172,7 @@ namespace ExplorerProMax.UI.Components
             }
         }
 
-        public void OpenFile(IPathEntity file)
+        public void OpenFile(IFileSystemEntity file)
         {
             if (!(file is FileEntity))
                 return;
@@ -320,7 +320,7 @@ namespace ExplorerProMax.UI.Components
                 lvFiles.View = View.Details;
         }
 
-        private void ShowContextMenu(List<IPathEntity> entitys, int X, int Y)
+        private void ShowContextMenu(List<IFileSystemEntity> entitys, int X, int Y)
         {
             ShellContextMenu ctxMnu = new ShellContextMenu();
             FileSystemInfo[] fsi = new FileSystemInfo[entitys.Count];
@@ -340,7 +340,7 @@ namespace ExplorerProMax.UI.Components
         {
             if(!AtHome && e.Button == MouseButtons.Right)
             {
-                var files = new List<IPathEntity>();
+                var files = new List<IFileSystemEntity>();
                 foreach (var selectedItem in lvFiles.SelectedItems)
                     files.Add((selectedItem as ListViewObjectItem).Item);
                 ShowContextMenu(files, e.X,e.Y);
@@ -351,15 +351,15 @@ namespace ExplorerProMax.UI.Components
         {
             if (!AtHome && e.Button == MouseButtons.Right && lvFiles.SelectedItems.Count == 0)
             {
-                var files = new List<IPathEntity>();
-                files.Add((IPathEntity)Explorer.CurrentWorkingDirectory);
+                var files = new List<IFileSystemEntity>();
+                files.Add((IFileSystemEntity)Explorer.CurrentWorkingDirectory);
                 ShowContextMenu(files, e.X, e.Y);
             }
         }
 
-        public List<IPathEntity> GetSelectedEntities()
+        public List<IFileSystemEntity> GetSelectedEntities()
         {
-            var entities = new List<IPathEntity>();
+            var entities = new List<IFileSystemEntity>();
             foreach (var selectedItem in lvFiles.SelectedItems)
                 entities.Add((selectedItem as ListViewObjectItem).Item);
             return entities;

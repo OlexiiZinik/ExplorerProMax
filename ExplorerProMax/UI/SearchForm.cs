@@ -16,7 +16,7 @@ namespace ExplorerProMax.UI
     {
         public FileExplorer Explorer { get; private set; }
 
-        public List<IPathEntity> SearchResult { get; private set; }
+        public List<IFileSystemEntity> SearchResult { get; private set; }
 
         public SearchForm(FileExplorer explorer)
         {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ExplorerProMax.Core.PathEntity
 {
-    public class DirectoryEntity: IPathEntity, IListable
+    public class DirectoryEntity: IFileSystemEntity, IListable
     {
         public string Name { get => GetName(); }
 
@@ -35,7 +35,7 @@ namespace ExplorerProMax.Core.PathEntity
             return FullPath.Split(@"\/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Last();
         }
 
-        public List<IPathEntity> ListDirectory()
+        public List<IFileSystemEntity> ListDirectory()
         {
             return Utils.FSManager.ListDirectory(this);
         }

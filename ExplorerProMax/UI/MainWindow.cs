@@ -54,7 +54,7 @@ namespace ExplorerProMax.UI
             if (currentFolderWindow.AtHome)
                 return;
 
-            foreach(IPathEntity entity in currentFolderWindow.SelectedEntities)
+            foreach(IFileSystemEntity entity in currentFolderWindow.SelectedEntities)
             {
                 currentFolderWindow.OpenFile(entity);
             }
@@ -66,7 +66,7 @@ namespace ExplorerProMax.UI
             if (currentFolderWindow.AtHome)
                 return;
 
-            foreach (IPathEntity entity in currentFolderWindow.SelectedEntities)
+            foreach (IFileSystemEntity entity in currentFolderWindow.SelectedEntities)
             {
 
                 if (entity is Core.PathEntity.FileEntity && (entity as  Core.PathEntity.FileEntity).Extention != "exe")

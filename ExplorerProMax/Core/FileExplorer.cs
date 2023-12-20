@@ -34,7 +34,7 @@ namespace ExplorerProMax.Core
             CurrentWorkingDirectory = directory;
         }
 
-        public List<IPathEntity> ListDirectory() 
+        public List<IFileSystemEntity> ListDirectory() 
         {
             return CurrentWorkingDirectory.ListDirectory();
         }
@@ -82,11 +82,11 @@ namespace ExplorerProMax.Core
             }
             return new DriveEntity(dir.FullPath);
         }
-        public void DeleteEntities(List<IPathEntity> files)
+        public void DeleteEntities(List<IFileSystemEntity> files)
         {
             Utils.FSManager.DeleteEntities(files);
         }
-        public void MoveFilesToCurrentDirectory(List<IPathEntity> files)
+        public void MoveFilesToCurrentDirectory(List<IFileSystemEntity> files)
         {
             if (CurrentWorkingDirectory != null)
                 Utils.FSManager.MoveFiles(files, CurrentWorkingDirectory);
@@ -97,7 +97,7 @@ namespace ExplorerProMax.Core
                 Utils.FSManager.CopyFiles(files, CurrentWorkingDirectory);
         }
 
-        public void CopyFilesToCurrentDirectory(List<IPathEntity> files)
+        public void CopyFilesToCurrentDirectory(List<IFileSystemEntity> files)
         {
             if (CurrentWorkingDirectory != null)
                 Utils.FSManager.CopyFiles(files, CurrentWorkingDirectory);
@@ -114,17 +114,17 @@ namespace ExplorerProMax.Core
             if (CurrentWorkingDirectory != null)
                 Utils.FSManager.MakeFile(CurrentWorkingDirectory, name, fileAttributes);
         }
-        public void RenameEntity(IPathEntity entity, string name, FileAttributes fileAttributes)
+        public void RenameEntity(IFileSystemEntity entity, string name, FileAttributes fileAttributes)
         {
             if (CurrentWorkingDirectory != null)
                 Utils.FSManager.RenameEntity(entity, name, fileAttributes);
         }
 
-        public List<IPathEntity> Serarch(string pattern, bool includeSubDirectoris, bool strictSearch) 
+        public List<IFileSystemEntity> Serarch(string pattern, bool includeSubDirectoris, bool strictSearch) 
         {
             if (CurrentWorkingDirectory != null)
                 return Utils.FSManager.Search(CurrentWorkingDirectory, pattern, includeSubDirectoris, strictSearch);
-            return new List<IPathEntity>();
+            return new List<IFileSystemEntity>();
         }
 
         //private void FillEmptyHistory()
