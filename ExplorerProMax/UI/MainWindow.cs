@@ -1,4 +1,5 @@
-﻿using ExplorerProMax.UI.Components;
+﻿using ExplorerProMax.Core.PathEntity;
+using ExplorerProMax.UI.Components;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -55,12 +56,28 @@ namespace ExplorerProMax.UI
 
         private void tsbOpen_Click(object sender, EventArgs e)
         {
+            var currentFolderWindow = GetFocusedFolderWindow();
+            if (currentFolderWindow.AtHome)
+                return;
 
+            foreach(IPathEntity entity in currentFolderWindow.SelectedEntities)
+            {
+                currentFolderWindow.OpenFile(entity);
+            }
         }
 
         private void tsbEdit_Click(object sender, EventArgs e)
         {
+            var currentFolderWindow = GetFocusedFolderWindow();
+            if (currentFolderWindow.AtHome)
+                return;
 
+            foreach (IPathEntity entity in currentFolderWindow.SelectedEntities)
+            {
+
+                if (entity is Core.PathEntity.FileInfo && (entity as  Core.PathEntity.FileInfo).Extention != "exe")
+                    currentFolderWindow.OpenFile(entity);
+            }
         }
 
         private void tsbCopy_Click(object sender, EventArgs e)

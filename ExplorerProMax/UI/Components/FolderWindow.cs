@@ -156,12 +156,19 @@ namespace ExplorerProMax.UI.Components
                 }
                 else if(doubleClicked is Core.PathEntity.FileInfo)
                 {
-                    ProcessStartInfo info = new ProcessStartInfo();
-                    info.FileName = (doubleClicked as Core.PathEntity.FileInfo).FullPath;
-
-                    Process.Start(info);
+                    OpenFile(doubleClicked);
                 }
             }
+        }
+
+        public void OpenFile(IPathEntity file)
+        {
+            if (!(file is Core.PathEntity.FileInfo))
+                return;
+
+            ProcessStartInfo info = new ProcessStartInfo();
+            info.FileName = (file as Core.PathEntity.FileInfo).FullPath;
+            Process.Start(info);
         }
 
         private void bBackward_Click(object sender, EventArgs e)
