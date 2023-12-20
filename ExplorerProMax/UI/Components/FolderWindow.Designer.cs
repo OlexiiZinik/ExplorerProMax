@@ -63,7 +63,6 @@
             this.columnHeader5});
             this.lvFiles.FullRowSelect = true;
             this.lvFiles.HideSelection = false;
-            this.lvFiles.LabelEdit = true;
             this.lvFiles.LargeImageList = this.ilIconsLarge;
             this.lvFiles.Location = new System.Drawing.Point(3, 31);
             this.lvFiles.Name = "lvFiles";
@@ -76,6 +75,7 @@
             this.lvFiles.DragDrop += new System.Windows.Forms.DragEventHandler(this.lvFiles_DragDrop);
             this.lvFiles.DragEnter += new System.Windows.Forms.DragEventHandler(this.lvFiles_DragEnter);
             this.lvFiles.DragLeave += new System.EventHandler(this.lvFiles_DragLeave);
+            this.lvFiles.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvFiles_KeyDown);
             this.lvFiles.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lvFiles_MouseClick);
             this.lvFiles.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvFiles_MouseDoubleClick);
             this.lvFiles.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lvFiles_MouseDown);
@@ -130,18 +130,19 @@
             this.cbDisk.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDisk.Location = new System.Drawing.Point(3, 4);
             this.cbDisk.Name = "cbDisk";
-            this.cbDisk.Size = new System.Drawing.Size(115, 21);
+            this.cbDisk.Size = new System.Drawing.Size(57, 21);
             this.cbDisk.TabIndex = 1;
             this.cbDisk.TabStop = false;
             this.cbDisk.SelectedIndexChanged += new System.EventHandler(this.cbDisk_SelectedIndexChanged);
+            this.cbDisk.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbDisk_KeyDown);
             // 
             // tbPath
             // 
             this.tbPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbPath.Location = new System.Drawing.Point(127, 4);
+            this.tbPath.Location = new System.Drawing.Point(66, 4);
             this.tbPath.Name = "tbPath";
-            this.tbPath.Size = new System.Drawing.Size(409, 20);
+            this.tbPath.Size = new System.Drawing.Size(470, 20);
             this.tbPath.TabIndex = 2;
             this.tbPath.TabStop = false;
             this.tbPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbPath_KeyDown);

@@ -170,5 +170,74 @@ namespace ExplorerProMax.UI
             if (!folderWindow2.AtHome)
                 folderWindow2.ShowCurrentDirectory();
         }
+
+        private void tsbHelp_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control)
+            {
+                switch(e.KeyCode)
+                {
+                    case Keys.F:
+                        if (e.Shift && tsbCancelSearch.Visible)
+                            tsbCancelSearch.PerformClick();
+                        else
+                            tsbSearch.PerformClick();
+                        break;
+                    case Keys.R:
+                        tsbEditAttributes.PerformClick();
+                        break;
+                }
+            }
+            else if (e.Alt)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.F1:
+                        folderWindow1.OpenAndFocusDiskSelect();
+                        break;
+                    case Keys.F2:
+                        folderWindow2.OpenAndFocusDiskSelect();
+                        break;
+                }
+            }
+            else
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.F1:
+                        tsbHelp.PerformClick();
+                        break;
+                    case Keys.F3:
+                        tsbOpen.PerformClick();
+                        break;
+                    case Keys.F4:
+                        tsbEdit.PerformClick();
+                        break;
+                    case Keys.F5:
+                        tsbCopy.PerformClick();
+                        break;
+                    case Keys.F6:
+                        tsbMove.PerformClick();
+                        break;
+                    case Keys.F7:
+                        tsbNewFolder.PerformClick();
+                        break;
+                    case Keys.F8:
+                        tsbNewFile.PerformClick();
+                        break;
+                    case Keys.F9:
+                        tsbDelete.PerformClick();
+                        break;
+                    case Keys.F10:
+                        tsbExit.PerformClick();
+                        break;
+                }
+            }
+        }
     }
 }

@@ -146,24 +146,30 @@ namespace ExplorerProMax.UI.Components
 
             if (e.Button == MouseButtons.Left)
             {
+                OpenSelectedFileOrDirectory();
+            }
+        }
+        private void OpenSelectedFileOrDirectory()
+        {
+            IPathEntity selectedItem = SelectedEntities.First();
+            if (selectedItem == null)
+                return;
 
-                IPathEntity doubleClicked = (lvFiles.SelectedItems[0] as ListViewObjectItem).Item;
-                if(doubleClicked is IListable)
-                {
-                    ChangeDirectory(doubleClicked as IListable);
-                }
-                else if (doubleClicked is ParentLink)
-                {
-                    if (Explorer.CurrentWorkingDirectory.Parent is null)
-                        ShowHome();
-                    else
-                        ChangeDirectory(Explorer.CurrentWorkingDirectory.Parent);
-                    bForward.Enabled = false;
-                }
-                else if(doubleClicked is Core.PathEntity.FileInfo)
-                {
-                    OpenFile(doubleClicked);
-                }
+            if (selectedItem is IListable)
+            {
+                ChangeDirectory(selectedItem as IListable);
+            }
+            else if (selectedItem is ParentLink)
+            {
+                if (Explorer.CurrentWorkingDirectory.Parent is null)
+                    ShowHome();
+                else
+                    ChangeDirectory(Explorer.CurrentWorkingDirectory.Parent);
+                bForward.Enabled = false;
+            }
+            else if (selectedItem is Core.PathEntity.FileInfo)
+            {
+                OpenFile(selectedItem);
             }
         }
 
@@ -358,6 +364,28 @@ namespace ExplorerProMax.UI.Components
             foreach (var selectedItem in lvFiles.SelectedItems)
                 entities.Add((selectedItem as ListViewObjectItem).Item);
             return entities;
+        }
+
+        private void lvFiles_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                OpenSelectedFileOrDirectory();
+            }
+        }
+
+        public void OpenAndFocusDiskSelect()
+        {
+            cbDisk.DroppedDown = !cbDisk.DroppedDown;
+            cbDisk.Focus();
+        }
+
+        private void cbDisk_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            { 
+                lvFiles.Focus();
+            }
         }
     }
 }
