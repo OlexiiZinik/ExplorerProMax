@@ -119,6 +119,13 @@ namespace ExplorerProMax.Core
                 Utils.RenameEntity(entity, name, fileAttributes);
         }
 
+        public List<IPathEntity> Serarch(string template, bool includeSubDirectoris, bool strictSearch) 
+        {
+            if (CurrentWorkingDirectory != null)
+                return Utils.Search(CurrentWorkingDirectory, template, includeSubDirectoris, strictSearch);
+            return new List<IPathEntity>();
+        }
+
         private void FillEmptyHistory()
         {
             if (path_history.Count == 0)

@@ -24,15 +24,9 @@ namespace ExplorerProMax.UI
         private FolderWindow GetFocusedFolderWindow()
         {
             if (folderWindow1.ContainsFocus)
-            {
-                Console.WriteLine("1");
                 return folderWindow1;
-            }
             else
-            {
-                Console.WriteLine("2");
                 return folderWindow2;
-            }
         }
         private FolderWindow GetUnFocusedFolderWindow()
         {
@@ -152,6 +146,29 @@ namespace ExplorerProMax.UI
         private void folderWindow1_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void tsbSearch_Click(object sender, EventArgs e)
+        {
+            var currentFolderWindow = GetFocusedFolderWindow();
+            if (currentFolderWindow.AtHome)
+                return;
+
+            SearchForm searchForm = new SearchForm(currentFolderWindow.Explorer);
+            if(searchForm.ShowDialog() == DialogResult.OK)
+            {
+                currentFolderWindow.ShowSearchResult(searchForm.SearchResult);
+                tsbCancelSearch.Visible = true;
+            }
+        }
+
+        private void tsbCancelSearch_Click(object sender, EventArgs e)
+        {
+            tsbCancelSearch.Visible = false;
+            if(!folderWindow1.AtHome)
+                folderWindow1.ShowCurrentDirectory();
+            if (!folderWindow2.AtHome)
+                folderWindow2.ShowCurrentDirectory();
         }
     }
 }

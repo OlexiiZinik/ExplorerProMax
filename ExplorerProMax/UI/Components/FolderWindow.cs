@@ -135,6 +135,12 @@ namespace ExplorerProMax.UI.Components
             }
         }
 
+        public void ShowSearchResult(List<IPathEntity> files)
+        {
+            fswObserver.EnableRaisingEvents = false;
+            ShowFiles(files);
+        }
+
         private void lvFiles_MouseDoubleClick(object sender, MouseEventArgs e)
         {
 

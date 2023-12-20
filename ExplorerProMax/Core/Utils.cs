@@ -185,5 +185,37 @@ namespace ExplorerProMax.Core
                 catch { }
             }
         }
+
+        public static List<IPathEntity> Search(IListable location, string template, bool includeSubDirectories, bool strictSearch)
+        {
+            string[] files;
+            char[] chars = template.Replace(".", "").ToCharArray();
+            Console.WriteLine(template.Replace(".", "").ToCharArray());
+            if (strictSearch)
+                files = Directory.GetFiles(
+                    location.FullPath, template,
+                    includeSubDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly
+                    );
+            else
+            {
+                files = Directory.GetFiles(
+                    location.FullPath,
+                    "*.*",
+                    includeSubDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly
+                    );
+                files = files.Where(p => p.Split(@"/\".ToCharArray()).Last().IndexOfAny(chars) >= 0).ToArray();
+
+            }
+
+            List<IPathEntity> entities = new List<IPathEntity>();
+            foreach (var file in files)
+            {
+                if (File.Exists(file))
+                    entities.Add(new PathEntity.FileInfo(file));
+                else if (Directory.Exists(file))
+                    entities.Add(new PathEntity.DirectoryInfo(file));
+            }
+            return entities;
+        }
     }
 }
