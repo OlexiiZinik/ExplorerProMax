@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExplorerProMax.Core.FileSystem;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Xml.Linq;
 
 namespace ExplorerProMax.Core.PathEntity
 {
-    public class FileInfo : IPathEntity
+    public class FileEntity : IPathEntity
     {
         public string FullPath { get; private set; }
         public string Location { get => GetLocation(); }
@@ -17,15 +18,15 @@ namespace ExplorerProMax.Core.PathEntity
         public EntityType Type => EntityType.FILE;
         public string Name { get => GetName(); }
         public string FullName { get => FullPath.Split(@"\/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Last(); }
-        public DateTime LastEdited => new System.IO.FileInfo(FullPath).LastWriteTime;
-        public FileAttributes Attributes => new System.IO.FileInfo(FullPath).Attributes;
-        public long Size => new System.IO.FileInfo(FullPath).Length;
+        public DateTime LastEdited => Utils.FSManager.GetFileTimeModified(this);
+        public FileAttributes Attributes => Utils.FSManager.GetFileAttributes(this);
+        public long Size => Utils.FSManager.GetFileSize(this);
 
-        public IListable Parent => Utils.GetParent(this);
+        public IListable Parent => Utils.FSManager.GetParent(this);
 
-        public FileInfo() { }
+        public FileEntity() { }
 
-        public FileInfo(string fullPath, bool checkExists = true)
+        public FileEntity(string fullPath, bool checkExists = true)
         {
             if(checkExists)
                 if(!File.Exists(fullPath))

@@ -55,13 +55,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\PathEntity\DirectoryInfo.cs" />
-    <Compile Include="Core\PathEntity\DiskInfo.cs" />
-    <Compile Include="Core\PathEntity\FileInfo.cs" />
+    <Compile Include="Core\FileSystem\FileSystemManager.cs" />
+    <Compile Include="Core\PathEntity\DirectoryEntity.cs" />
+    <Compile Include="Core\PathEntity\DriveEntity.cs" />
+    <Compile Include="Core\PathEntity\FileEntity.cs" />
     <Compile Include="Core\FileExplorer.cs" />
     <Compile Include="Core\PathEntity\IListable.cs" />
     <Compile Include="Core\PathEntity\IPathEntity.cs" />
     <Compile Include="Core\PathEntity\ParentLink.cs" />
+    <Compile Include="Core\FileSystem\WindowsFileSystemManager.cs" />
     <Compile Include="Core\Utils.cs" />
     <Compile Include="UI\Components\ListViewColumnSorter .cs" />
     <Compile Include="UI\EditEntity.cs">

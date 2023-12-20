@@ -29,10 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.налаштуванняToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.допомогаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.tsbCancelSearch = new System.Windows.Forms.ToolStripButton();
             this.tsbSearch = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.tsbHelp = new System.Windows.Forms.ToolStripButton();
@@ -46,18 +44,16 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbMove = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbNewFile = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbNewFolder = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbNewFile = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbDelete = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbExit = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tsbCancelSearch = new System.Windows.Forms.ToolStripButton();
             this.folderWindow1 = new ExplorerProMax.UI.Components.FolderWindow();
             this.folderWindow2 = new ExplorerProMax.UI.Components.FolderWindow();
-            this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -65,30 +61,6 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.налаштуванняToolStripMenuItem,
-            this.допомогаToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1233, 24);
-            this.menuStrip1.TabIndex = 2;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // налаштуванняToolStripMenuItem
-            // 
-            this.налаштуванняToolStripMenuItem.Name = "налаштуванняToolStripMenuItem";
-            this.налаштуванняToolStripMenuItem.Size = new System.Drawing.Size(101, 20);
-            this.налаштуванняToolStripMenuItem.Text = "Налаштування";
-            // 
-            // допомогаToolStripMenuItem
-            // 
-            this.допомогаToolStripMenuItem.Name = "допомогаToolStripMenuItem";
-            this.допомогаToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
-            this.допомогаToolStripMenuItem.Text = "Допомога";
             // 
             // toolStrip1
             // 
@@ -98,11 +70,22 @@
             this.toolStripSeparator,
             this.tsbHelp,
             this.tsbEditAttributes});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1233, 25);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // tsbCancelSearch
+            // 
+            this.tsbCancelSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbCancelSearch.Image = ((System.Drawing.Image)(resources.GetObject("tsbCancelSearch.Image")));
+            this.tsbCancelSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbCancelSearch.Name = "tsbCancelSearch";
+            this.tsbCancelSearch.Size = new System.Drawing.Size(23, 22);
+            this.tsbCancelSearch.Text = "Відмінити пошук";
+            this.tsbCancelSearch.Visible = false;
+            this.tsbCancelSearch.Click += new System.EventHandler(this.tsbCancelSearch_Click);
             // 
             // tsbSearch
             // 
@@ -225,21 +208,6 @@
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
-            // tsbNewFile
-            // 
-            this.tsbNewFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbNewFile.Image = ((System.Drawing.Image)(resources.GetObject("tsbNewFile.Image")));
-            this.tsbNewFile.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbNewFile.Name = "tsbNewFile";
-            this.tsbNewFile.Size = new System.Drawing.Size(94, 22);
-            this.tsbNewFile.Text = "F8 Новий файл";
-            this.tsbNewFile.Click += new System.EventHandler(this.tsbNewFile_Click);
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
-            // 
             // tsbNewFolder
             // 
             this.tsbNewFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -249,6 +217,21 @@
             this.tsbNewFolder.Size = new System.Drawing.Size(80, 22);
             this.tsbNewFolder.Text = "F7 Нова тека";
             this.tsbNewFolder.Click += new System.EventHandler(this.tsbNewFolder_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tsbNewFile
+            // 
+            this.tsbNewFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbNewFile.Image = ((System.Drawing.Image)(resources.GetObject("tsbNewFile.Image")));
+            this.tsbNewFile.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbNewFile.Name = "tsbNewFile";
+            this.tsbNewFile.Size = new System.Drawing.Size(94, 22);
+            this.tsbNewFile.Text = "F8 Новий файл";
+            this.tsbNewFile.Click += new System.EventHandler(this.tsbNewFile_Click);
             // 
             // toolStripSeparator5
             // 
@@ -284,7 +267,7 @@
             // 
             this.splitContainer1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 49);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 25);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -294,21 +277,10 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.folderWindow2);
-            this.splitContainer1.Size = new System.Drawing.Size(1233, 696);
+            this.splitContainer1.Size = new System.Drawing.Size(1233, 720);
             this.splitContainer1.SplitterDistance = 617;
             this.splitContainer1.TabIndex = 5;
             this.splitContainer1.TabStop = false;
-            // 
-            // tsbCancelSearch
-            // 
-            this.tsbCancelSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbCancelSearch.Image = ((System.Drawing.Image)(resources.GetObject("tsbCancelSearch.Image")));
-            this.tsbCancelSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbCancelSearch.Name = "tsbCancelSearch";
-            this.tsbCancelSearch.Size = new System.Drawing.Size(23, 22);
-            this.tsbCancelSearch.Text = "Відмінити пошук";
-            this.tsbCancelSearch.Visible = false;
-            this.tsbCancelSearch.Click += new System.EventHandler(this.tsbCancelSearch_Click);
             // 
             // folderWindow1
             // 
@@ -318,9 +290,8 @@
             this.folderWindow1.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.folderWindow1.Location = new System.Drawing.Point(0, 3);
             this.folderWindow1.Name = "folderWindow1";
-            this.folderWindow1.Size = new System.Drawing.Size(614, 693);
+            this.folderWindow1.Size = new System.Drawing.Size(614, 717);
             this.folderWindow1.TabIndex = 0;
-            this.folderWindow1.Enter += new System.EventHandler(this.folderWindow1_Enter);
             // 
             // folderWindow2
             // 
@@ -330,9 +301,8 @@
             this.folderWindow2.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.folderWindow2.Location = new System.Drawing.Point(3, 3);
             this.folderWindow2.Name = "folderWindow2";
-            this.folderWindow2.Size = new System.Drawing.Size(612, 693);
+            this.folderWindow2.Size = new System.Drawing.Size(612, 717);
             this.folderWindow2.TabIndex = 0;
-            this.folderWindow2.Enter += new System.EventHandler(this.folderWindow2_Enter);
             // 
             // MainWindow
             // 
@@ -342,16 +312,12 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";
             this.Text = "Explorer Pro Max";
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
@@ -366,7 +332,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripButton tsbOpen;
@@ -385,8 +350,6 @@
         private System.Windows.Forms.ToolStripButton tsbDelete;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripButton tsbExit;
-        private System.Windows.Forms.ToolStripMenuItem налаштуванняToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem допомогаToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
         private System.Windows.Forms.ToolStripButton tsbHelp;
         private System.Windows.Forms.ToolStripButton tsbSearch;

@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.WebRequestMethods;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using FileInfo = System.IO.FileInfo;
 
 namespace ExplorerProMax.UI.Components
 {
@@ -104,7 +103,7 @@ namespace ExplorerProMax.UI.Components
         public void ShowFiles(List<IPathEntity> files)
         {
             lvFiles.Items.Clear();
-            for (int i = 5; i < lvFiles.Items.Count; i++)
+            for (int i = 5; i < ilIconsSmall.Images.Count; i++)
             {
                 ilIconsSmall.Images.RemoveAt(i);
                 ilIconsLarge.Images.RemoveAt(i);
@@ -167,7 +166,7 @@ namespace ExplorerProMax.UI.Components
                     ChangeDirectory(Explorer.CurrentWorkingDirectory.Parent);
                 bForward.Enabled = false;
             }
-            else if (selectedItem is Core.PathEntity.FileInfo)
+            else if (selectedItem is FileEntity)
             {
                 OpenFile(selectedItem);
             }
@@ -175,11 +174,11 @@ namespace ExplorerProMax.UI.Components
 
         public void OpenFile(IPathEntity file)
         {
-            if (!(file is Core.PathEntity.FileInfo))
+            if (!(file is FileEntity))
                 return;
 
             ProcessStartInfo info = new ProcessStartInfo();
-            info.FileName = (file as Core.PathEntity.FileInfo).FullPath;
+            info.FileName = (file as FileEntity).FullPath;
             Process.Start(info);
         }
 
@@ -229,17 +228,17 @@ namespace ExplorerProMax.UI.Components
                 return;
             }
 
-            Core.PathEntity.DirectoryInfo path;
+            DirectoryEntity path;
             try
             {
-                path = new Core.PathEntity.DirectoryInfo(tbPath.Text);
+                path = new DirectoryEntity(tbPath.Text);
                 ChangeDirectory(path);
             }
             catch (DirectoryNotFoundException)
             {
                 try
                 {
-                    ChangeDirectory(new Core.PathEntity.FileInfo(tbPath.Text).Parent);
+                    ChangeDirectory(new FileEntity(tbPath.Text).Parent);
                 }
                 catch
                 {
@@ -253,7 +252,7 @@ namespace ExplorerProMax.UI.Components
             if (cbDisk.Text == String.Empty)
                 ShowHome();
             else
-                ChangeDirectory(new DiskInfo(cbDisk.Text+@"\"));
+                ChangeDirectory(new DriveEntity(cbDisk.Text+@"\"));
         }
 
 
@@ -327,11 +326,11 @@ namespace ExplorerProMax.UI.Components
             FileSystemInfo[] fsi = new FileSystemInfo[entitys.Count];
             for (int i = 0; i < entitys.Count; i++)
             {
-                if (entitys[i] is Core.PathEntity.FileInfo)
-                    fsi[i] = new System.IO.FileInfo(entitys[i].FullPath);
-                else if (entitys[i] is Core.PathEntity.DirectoryInfo)
-                    fsi[i] = new System.IO.DirectoryInfo(entitys[i].FullPath);
-                else if (entitys[i] is Core.PathEntity.DiskInfo)
+                if (entitys[i] is FileEntity)
+                    fsi[i] = new FileInfo(entitys[i].FullPath);
+                else if (entitys[i] is DirectoryEntity)
+                    fsi[i] = new DirectoryInfo(entitys[i].FullPath);
+                else if (entitys[i] is DriveEntity)
                     return;
             }
             ctxMnu.ShowContextMenu(fsi, this.PointToScreen(new Point(X + 5, Y + 35)));
@@ -383,7 +382,7 @@ namespace ExplorerProMax.UI.Components
         private void cbDisk_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-            { 
+            {
                 lvFiles.Focus();
             }
         }

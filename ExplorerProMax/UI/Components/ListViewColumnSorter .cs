@@ -63,16 +63,16 @@ public class ListViewColumnSorter : IComparer
         
         if(ColumnToSort == 2)
         {
-            if (listviewX.Item is FileInfo && listviewY.Item is FileInfo)
-                compareResult = ObjectCompare.Compare((listviewX.Item as FileInfo).Size, (listviewY.Item as FileInfo).Size);
-            else if (listviewX.Item is DirectoryInfo && listviewY.Item is DirectoryInfo)
+            if (listviewX.Item is FileEntity && listviewY.Item is FileEntity)
+                compareResult = ObjectCompare.Compare((listviewX.Item as FileEntity).Size, (listviewY.Item as FileEntity).Size);
+            else if (listviewX.Item is DirectoryEntity && listviewY.Item is DirectoryEntity)
                 compareResult = ObjectCompare.Compare(listviewX.SubItems[ColumnToSort].Text, listviewY.SubItems[ColumnToSort].Text);
-            else if (listviewX.Item is FileInfo && listviewY.Item is DirectoryInfo)
+            else if (listviewX.Item is FileEntity && listviewY.Item is DirectoryEntity)
                 compareResult = 10;
-            else if (listviewX.Item is DirectoryInfo && listviewY.Item is FileInfo)
+            else if (listviewX.Item is DirectoryEntity && listviewY.Item is FileEntity)
                 compareResult = -10;
-            else if (listviewX.Item is DiskInfo && listviewY.Item is DiskInfo)
-                compareResult = ObjectCompare.Compare((listviewX.Item as DiskInfo).Size, (listviewY.Item as DiskInfo).Size);
+            else if (listviewX.Item is DriveEntity && listviewY.Item is DriveEntity)
+                compareResult = ObjectCompare.Compare((listviewX.Item as DriveEntity).Size, (listviewY.Item as DriveEntity).Size);
             
             else
                 compareResult = ObjectCompare.Compare(listviewX.SubItems[0].Text, listviewY.SubItems[0].Text);

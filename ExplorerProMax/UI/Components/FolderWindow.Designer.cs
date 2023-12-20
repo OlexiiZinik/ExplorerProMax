@@ -1,4 +1,6 @@
-﻿namespace ExplorerProMax.UI.Components
+﻿using System.IO;
+
+namespace ExplorerProMax.UI.Components
 {
     partial class FolderWindow
     {
@@ -42,7 +44,7 @@
             this.tbPath = new System.Windows.Forms.TextBox();
             this.bBackward = new System.Windows.Forms.Button();
             this.bForward = new System.Windows.Forms.Button();
-            this.fswObserver = new System.IO.FileSystemWatcher();
+            this.fswObserver = new FileSystemWatcher();
             this.cbView = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.fswObserver)).BeginInit();
@@ -176,10 +178,10 @@
             // 
             this.fswObserver.EnableRaisingEvents = true;
             this.fswObserver.SynchronizingObject = this;
-            this.fswObserver.Changed += new System.IO.FileSystemEventHandler(this.fswObserver_Changed);
-            this.fswObserver.Created += new System.IO.FileSystemEventHandler(this.fswObserver_Changed);
-            this.fswObserver.Deleted += new System.IO.FileSystemEventHandler(this.fswObserver_Changed);
-            this.fswObserver.Renamed += new System.IO.RenamedEventHandler(this.fswObserver_Renamed);
+            this.fswObserver.Changed += new FileSystemEventHandler(this.fswObserver_Changed);
+            this.fswObserver.Created += new FileSystemEventHandler(this.fswObserver_Changed);
+            this.fswObserver.Deleted += new FileSystemEventHandler(this.fswObserver_Changed);
+            this.fswObserver.Renamed += new RenamedEventHandler(this.fswObserver_Renamed);
             // 
             // cbView
             // 
@@ -237,7 +239,7 @@
         private System.Windows.Forms.Button bBackward;
         private System.Windows.Forms.Button bForward;
         private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.IO.FileSystemWatcher fswObserver;
+        private FileSystemWatcher fswObserver;
         private System.Windows.Forms.ImageList ilIconsSmall;
         private System.Windows.Forms.ComboBox cbView;
         private System.Windows.Forms.Label label1;

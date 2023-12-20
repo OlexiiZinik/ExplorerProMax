@@ -12,7 +12,7 @@ namespace ExplorerProMax.Core.PathEntity.Tests
     [TestClass()]
     public class DiskInfoTests
     {
-        public PathEntity.DiskInfo disk1 = new PathEntity.DiskInfo(@"C:\", false);
+        public PathEntity.DriveEntity disk1 = new PathEntity.DriveEntity(@"C:\", false);
         [TestMethod()]
         public void GetNameTest()
         {
@@ -23,7 +23,7 @@ namespace ExplorerProMax.Core.PathEntity.Tests
         [ExpectedException(typeof(DriveNotFoundException))]
         public void DoesNotExistsTest1()
         {
-            PathEntity.DiskInfo disk1 = new PathEntity.DiskInfo("J:/");
+            PathEntity.DriveEntity disk1 = new PathEntity.DriveEntity("J:/");
         }
     }
 }

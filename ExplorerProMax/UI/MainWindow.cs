@@ -69,7 +69,7 @@ namespace ExplorerProMax.UI
             foreach (IPathEntity entity in currentFolderWindow.SelectedEntities)
             {
 
-                if (entity is Core.PathEntity.FileInfo && (entity as  Core.PathEntity.FileInfo).Extention != "exe")
+                if (entity is Core.PathEntity.FileEntity && (entity as  Core.PathEntity.FileEntity).Extention != "exe")
                     currentFolderWindow.OpenFile(entity);
             }
         }
@@ -138,15 +138,6 @@ namespace ExplorerProMax.UI
             createFile.ShowDialog();
         }
 
-        private void folderWindow2_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void folderWindow1_Enter(object sender, EventArgs e)
-        {
-
-        }
 
         private void tsbSearch_Click(object sender, EventArgs e)
         {
@@ -175,7 +166,7 @@ namespace ExplorerProMax.UI
         {
 
         }
-
+        #region KeyBindings
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control)
@@ -239,5 +230,6 @@ namespace ExplorerProMax.UI
                 }
             }
         }
+        #endregion
     }
 }

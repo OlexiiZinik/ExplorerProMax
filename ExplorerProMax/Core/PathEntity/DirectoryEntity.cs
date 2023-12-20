@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExplorerProMax.Core.FileSystem;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace ExplorerProMax.Core.PathEntity
 {
-    public class DirectoryInfo: IPathEntity, IListable
+    public class DirectoryEntity: IPathEntity, IListable
     {
         public string Name { get => GetName(); }
 
         public EntityType Type => EntityType.DIRECTORY;
 
         public string FullPath { get; private set; }
-        public DateTime LastEdited => new System.IO.DirectoryInfo(FullPath).LastWriteTime;
-        public FileAttributes Attributes => new System.IO.DirectoryInfo(FullPath).Attributes;
-        public IListable Parent => Utils.GetParent(this);
+        public DateTime LastEdited => Utils.FSManager.GetDirectoryTimeModified(this);
+        public FileAttributes Attributes => Utils.FSManager.GetDirectoryAttributes(this);
+        public IListable Parent => Utils.FSManager.GetParent(this);
 
-        public DirectoryInfo() { }
+        public DirectoryEntity() { }
 
 
-        public DirectoryInfo(string fullPath, bool checkExists = true)
+        public DirectoryEntity(string fullPath, bool checkExists = true)
         {
             if (checkExists)
                 if (!Directory.Exists(fullPath))
@@ -36,7 +37,7 @@ namespace ExplorerProMax.Core.PathEntity
 
         public List<IPathEntity> ListDirectory()
         {
-            return Utils.ListDirectory(this);
+            return Utils.FSManager.ListDirectory(this);
         }
     }
 }

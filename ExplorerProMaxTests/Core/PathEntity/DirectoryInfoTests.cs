@@ -12,9 +12,9 @@ namespace ExplorerProMax.Core.PathEntity.Tests
     [TestClass()]
     public class DirectoryInfoTests
     {
-        public PathEntity.DirectoryInfo directory1 = new PathEntity.DirectoryInfo(@"C:\Users\", false);
-        public PathEntity.DirectoryInfo directory2 = new PathEntity.DirectoryInfo(@"C:\", false);
-        public PathEntity.DirectoryInfo directory3 = new PathEntity.DirectoryInfo(@"C:\Some Directory\", false);
+        public PathEntity.DirectoryEntity directory1 = new PathEntity.DirectoryEntity(@"C:\Users\", false);
+        public PathEntity.DirectoryEntity directory2 = new PathEntity.DirectoryEntity(@"C:\", false);
+        public PathEntity.DirectoryEntity directory3 = new PathEntity.DirectoryEntity(@"C:\Some Directory\", false);
         [TestMethod()]
         public void GetNameTest()
         {
@@ -27,13 +27,13 @@ namespace ExplorerProMax.Core.PathEntity.Tests
         [ExpectedException(typeof(DirectoryNotFoundException))]
         public void DoesNotExistsTest()
         {
-            PathEntity.DirectoryInfo directory1 = new PathEntity.DirectoryInfo(@"C:\UgaBuga\");
+            PathEntity.DirectoryEntity directory1 = new PathEntity.DirectoryEntity(@"C:\UgaBuga\");
         }
 
         [TestMethod()]
         public void ExistsTest()
         {
-            PathEntity.DirectoryInfo directory1 = new PathEntity.DirectoryInfo(@"C:\");
+            PathEntity.DirectoryEntity directory1 = new PathEntity.DirectoryEntity(@"C:\");
         }
     }
 }

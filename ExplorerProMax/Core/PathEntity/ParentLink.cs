@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExplorerProMax.Core.FileSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace ExplorerProMax.Core.PathEntity
 
         public string FullPath { get; private set; }
 
-        public IListable Parent => Utils.GetParent(this);
+        public IListable Parent => Utils.FSManager.GetParent(this);
 
         public ParentLink(IListable location) 
         {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,6 @@ namespace ExplorerProMax.UI
         public EditEntityOptions Options { get; private set; }
         public IPathEntity CurrentWorkingEntity { get; private set; }
         public FileExplorer Explorer { get; private set; }
-
 
 
         public EditEntity(FileExplorer explorer, EditEntityOptions editEntityOptions) : this(explorer)
@@ -50,23 +50,23 @@ namespace ExplorerProMax.UI
         public EditEntity(FileExplorer explorer, IPathEntity entity) : this(explorer)
         {
 
-            if (entity is FileInfo)
+            if (entity is FileEntity)
             {
                 Text = $"Редагування файлу {entity.FullPath}";
-                tbName.Text = (entity as FileInfo).FullName;
+                tbName.Text = (entity as FileEntity).FullName;
                 cbAttributeDirectory.Checked = false;
-                cbAttributeReadOnly.Checked = (entity as FileInfo).Attributes.HasFlag(System.IO.FileAttributes.ReadOnly);
-                cbAttributeHidden.Checked = (entity as FileInfo).Attributes.HasFlag(System.IO.FileAttributes.Hidden);
-                cbAttributeSystem.Checked = (entity as FileInfo).Attributes.HasFlag(System.IO.FileAttributes.System);
+                cbAttributeReadOnly.Checked = (entity as FileEntity).Attributes.HasFlag(FileAttributes.ReadOnly);
+                cbAttributeHidden.Checked = (entity as FileEntity).Attributes.HasFlag(FileAttributes.Hidden);
+                cbAttributeSystem.Checked = (entity as FileEntity).Attributes.HasFlag(FileAttributes.System);
             }
-            else if (entity is DirectoryInfo)
+            else if (entity is DirectoryEntity)
             {
                 Text = $"Редагування каталогу {entity.FullPath}";
-                tbName.Text = (entity as DirectoryInfo).Name;
+                tbName.Text = (entity as DirectoryEntity).Name;
                 cbAttributeDirectory.Checked = true;
-                cbAttributeReadOnly.Checked = (entity as DirectoryInfo).Attributes.HasFlag(System.IO.FileAttributes.ReadOnly);
-                cbAttributeHidden.Checked = (entity as DirectoryInfo).Attributes.HasFlag(System.IO.FileAttributes.Hidden);
-                cbAttributeSystem.Checked = (entity as DirectoryInfo).Attributes.HasFlag(System.IO.FileAttributes.System);
+                cbAttributeReadOnly.Checked = (entity as DirectoryEntity).Attributes.HasFlag(FileAttributes.ReadOnly);
+                cbAttributeHidden.Checked = (entity as DirectoryEntity).Attributes.HasFlag(FileAttributes.Hidden);
+                cbAttributeSystem.Checked = (entity as DirectoryEntity).Attributes.HasFlag(FileAttributes.System);
             }
             else
                 throw new ArgumentException("Specifi param entity to edit entity");
@@ -86,21 +86,21 @@ namespace ExplorerProMax.UI
 
         private void bApply_Click(object sender, EventArgs e)
         {
-            System.IO.FileAttributes attributes = 0;
-            if (cbAttributeReadOnly.Checked) attributes |= System.IO.FileAttributes.ReadOnly;
-            if (cbAttributeHidden.Checked) attributes |= System.IO.FileAttributes.Hidden;
-            if (cbAttributeSystem.Checked) attributes |= System.IO.FileAttributes.System;
+            FileAttributes attributes = 0;
+            if (cbAttributeReadOnly.Checked) attributes |= FileAttributes.ReadOnly;
+            if (cbAttributeHidden.Checked) attributes |= FileAttributes.Hidden;
+            if (cbAttributeSystem.Checked) attributes |= FileAttributes.System;
 
-            if (CurrentWorkingEntity is FileInfo)
+            if (CurrentWorkingEntity is FileEntity)
             {
-                attributes &= ~System.IO.FileAttributes.Directory;
+                attributes &= ~FileAttributes.Directory;
                 Explorer.RenameEntity(CurrentWorkingEntity, tbName.Text, attributes);
                 Close();
                 return;
             }
-            else if (CurrentWorkingEntity is DirectoryInfo)
+            else if (CurrentWorkingEntity is DirectoryEntity)
             {
-                attributes |= System.IO.FileAttributes.Directory;
+                attributes |= FileAttributes.Directory;
                 Explorer.RenameEntity(CurrentWorkingEntity, tbName.Text, attributes);
                 Close();
                 return;
@@ -109,11 +109,11 @@ namespace ExplorerProMax.UI
             switch (Options)
             {
                 case EditEntityOptions.CREATE_FILE:
-                    attributes &= ~System.IO.FileAttributes.Directory;
+                    attributes &= ~FileAttributes.Directory;
                     Explorer.CreateFile(tbName.Text, attributes);
                     break;
                 case EditEntityOptions.CREATE_DIRECTORY:
-                    attributes |= System.IO.FileAttributes.Directory;
+                    attributes |= FileAttributes.Directory;
                     Explorer.CreateDirectory(tbName.Text, attributes);
                     break;
             }
@@ -126,10 +126,5 @@ namespace ExplorerProMax.UI
         {
             Close();
         }
-
-        //public DialogResult ShowDialog()
-        //{
-
-        //}
     }
 }

@@ -12,14 +12,14 @@ namespace ExplorerProMax.Core.PathEntity.Tests
     [TestClass()]
     public class FileInfoTests
     {
-        private FileInfo testFile1 = new FileInfo(@"C:\SomeFolder1\SomeFile1.exe", false);
-        private FileInfo testFile2 = new FileInfo(@"C:\Some Folder 2\SomeFile2.txt", false);
-        private FileInfo testFile3 = new FileInfo(@"C:\SomeFolder3\Some File 3.docx", false);
-        private FileInfo testFile4 = new FileInfo(@"C:\Some Folder 4\Some File 4.pdf", false);
-        private FileInfo testFile5 = new FileInfo(@"C:\Some File 5.pdf", false);
-        private FileInfo testFile6 = new FileInfo(@"C:\.gitignore", false);
-        private FileInfo testFile7 = new FileInfo(@"C:\file", false);
-        private FileInfo testFile8 = new FileInfo(@"C:\.hidden_file.txt", false);
+        private FileEntity testFile1 = new FileEntity(@"C:\SomeFolder1\SomeFile1.exe", false);
+        private FileEntity testFile2 = new FileEntity(@"C:\Some Folder 2\SomeFile2.txt", false);
+        private FileEntity testFile3 = new FileEntity(@"C:\SomeFolder3\Some File 3.docx", false);
+        private FileEntity testFile4 = new FileEntity(@"C:\Some Folder 4\Some File 4.pdf", false);
+        private FileEntity testFile5 = new FileEntity(@"C:\Some File 5.pdf", false);
+        private FileEntity testFile6 = new FileEntity(@"C:\.gitignore", false);
+        private FileEntity testFile7 = new FileEntity(@"C:\file", false);
+        private FileEntity testFile8 = new FileEntity(@"C:\.hidden_file.txt", false);
 
         [TestMethod()]
         public void GetNameTest()
@@ -61,13 +61,13 @@ namespace ExplorerProMax.Core.PathEntity.Tests
         [ExpectedException(typeof(FileNotFoundException))]
         public void DoesNotExistsTest()
         {
-            FileInfo testFile = new FileInfo(@"C:\Some Folder 4\Some File 4.pdf");
+            FileEntity testFile = new FileEntity(@"C:\Some Folder 4\Some File 4.pdf");
         }
 
         [TestMethod()]
         public void ExistsTest()
         {
-            FileInfo test1File = new FileInfo(@"C:\Windows\regedit.exe");
+            FileEntity test1File = new FileEntity(@"C:\Windows\regedit.exe");
             
             //FileInfo test2File = new FileInfo(@"C:\appverifUI.dll");
         }

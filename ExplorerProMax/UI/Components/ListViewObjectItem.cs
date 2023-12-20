@@ -15,34 +15,34 @@ namespace ExplorerProMax.UI.Components
         public ListViewObjectItem(IPathEntity pathEntity) : base()
         {
             Item = pathEntity;
-            if (pathEntity is FileInfo ||  pathEntity is DirectoryInfo || pathEntity is ParentLink)
+            if (pathEntity is FileEntity ||  pathEntity is DirectoryEntity || pathEntity is ParentLink)
             {
                 this.Text = Item.Name;
             }
-            else if (pathEntity is DiskInfo)
+            else if (pathEntity is DriveEntity)
             {
-                this.Text = $"({pathEntity.Name}) {(pathEntity as DiskInfo).Label}";
+                this.Text = $"({pathEntity.Name}) {(pathEntity as DriveEntity).Label}";
             }
 
-            if (pathEntity is FileInfo)
+            if (pathEntity is FileEntity)
             {
-                this.SubItems.Add(new ListViewSubItem(this, (Item as FileInfo).Extention.ToUpper()));
-                this.SubItems.Add(new ListViewSubItem(this, Utils.SizeToString((Item as FileInfo).Size)));
-                this.SubItems.Add(new ListViewSubItem(this, (Item as FileInfo).LastEdited.ToString("yyyy/MM/dd HH:mm:ss")));
-                this.SubItems.Add(new ListViewSubItem(this, String.Join("", (Item as FileInfo).Attributes.ToString().Where(c=> !Char.IsLower(c)))));
+                this.SubItems.Add(new ListViewSubItem(this, (Item as FileEntity).Extention.ToUpper()));
+                this.SubItems.Add(new ListViewSubItem(this, Utils.SizeToString((Item as FileEntity).Size)));
+                this.SubItems.Add(new ListViewSubItem(this, (Item as FileEntity).LastEdited.ToString("yyyy/MM/dd HH:mm:ss")));
+                this.SubItems.Add(new ListViewSubItem(this, String.Join("", (Item as FileEntity).Attributes.ToString().Where(c=> !Char.IsLower(c)))));
             }
             
-            else if (pathEntity is DirectoryInfo)
+            else if (pathEntity is DirectoryEntity)
             {
                 this.SubItems.Add(new ListViewSubItem(this, "Directory"));
                 this.SubItems.Add(new ListViewSubItem(this, ""));
-                this.SubItems.Add(new ListViewSubItem(this, (Item as DirectoryInfo).LastEdited.ToString("yyyy/MM/dd HH:mm:ss")));
-                this.SubItems.Add(new ListViewSubItem(this, String.Join("", (Item as DirectoryInfo).Attributes.ToString().Where(c => !Char.IsLower(c)))));
+                this.SubItems.Add(new ListViewSubItem(this, (Item as DirectoryEntity).LastEdited.ToString("yyyy/MM/dd HH:mm:ss")));
+                this.SubItems.Add(new ListViewSubItem(this, String.Join("", (Item as DirectoryEntity).Attributes.ToString().Where(c => !Char.IsLower(c)))));
             }
-            else if (pathEntity is DiskInfo) 
+            else if (pathEntity is DriveEntity) 
             {
                 this.SubItems.Add(new ListViewSubItem(this, "Drive"));
-                this.SubItems.Add(new ListViewSubItem(this, $"{Utils.SizeToString((Item as DiskInfo).FreeSpace)} вільно з {Utils.SizeToString((Item as DiskInfo).Size)}"));
+                this.SubItems.Add(new ListViewSubItem(this, $"{Utils.SizeToString((Item as DriveEntity).FreeSpace)} вільно з {Utils.SizeToString((Item as DriveEntity).Size)}"));
                 this.SubItems.Add(new ListViewSubItem(this, ""));
                 this.SubItems.Add(new ListViewSubItem(this, ""));
             }

@@ -37,7 +37,13 @@ namespace ExplorerProMax.UI
             if (tbTemplate.Text == String.Empty || tbTemplate.Text == " ")
                 return;
             SearchResult = Explorer.Serarch(tbTemplate.Text, cbIncludeSubDirectories.Checked, cbStrictSearch.Checked);
-            DialogResult = DialogResult.OK;
+            if(SearchResult.Count > 0)
+                DialogResult = DialogResult.OK;
+            else
+            {
+                MessageBox.Show($"Не вдалось знайти файли за шаблоном\n{tbTemplate.Text}", "Нічого не знайдено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult = DialogResult.Cancel;
+            }
             Close();
         }
     }

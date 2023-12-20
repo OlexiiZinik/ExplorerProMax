@@ -1,4 +1,5 @@
-﻿using ExplorerProMax.Core.PathEntity;
+﻿using ExplorerProMax.Core.FileSystem;
+using ExplorerProMax.Core.PathEntity;
 using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
@@ -38,9 +39,9 @@ namespace ExplorerProMax.Core
             return CurrentWorkingDirectory.ListDirectory();
         }
 
-        public List<DiskInfo> GetAllDisks()
+        public List<DriveEntity> GetAllDisks()
         {
-            return Utils.GetAllDisks();
+            return Utils.FSManager.GetAllDisks();
         }
 
         public void Backward()
@@ -69,7 +70,7 @@ namespace ExplorerProMax.Core
             return false;
         }
 
-        public DiskInfo GetCurrentWorkingDisk()
+        public DriveEntity GetCurrentWorkingDisk()
         {
             if(CurrentWorkingDirectory is null)
                 return null;
@@ -79,65 +80,65 @@ namespace ExplorerProMax.Core
             {
                 dir = dir.Parent;
             }
-            return new DiskInfo(dir.FullPath);
+            return new DriveEntity(dir.FullPath);
         }
         public void DeleteEntities(List<IPathEntity> files)
         {
-            Utils.DeleteEntities(files);
+            Utils.FSManager.DeleteEntities(files);
         }
         public void MoveFilesToCurrentDirectory(List<IPathEntity> files)
         {
             if (CurrentWorkingDirectory != null)
-                Utils.MoveFiles(files, CurrentWorkingDirectory);
+                Utils.FSManager.MoveFiles(files, CurrentWorkingDirectory);
         }
         public void CopyFilesToCurrentDirectory(string[] files)
         {
             if (CurrentWorkingDirectory != null)
-                Utils.CopyFiles(files, CurrentWorkingDirectory);
+                Utils.FSManager.CopyFiles(files, CurrentWorkingDirectory);
         }
 
         public void CopyFilesToCurrentDirectory(List<IPathEntity> files)
         {
             if (CurrentWorkingDirectory != null)
-                Utils.CopyFiles(files, CurrentWorkingDirectory);
+                Utils.FSManager.CopyFiles(files, CurrentWorkingDirectory);
         }
 
         public void CreateDirectory(string name, FileAttributes fileAttributes)
         {
             if(CurrentWorkingDirectory != null)
-                Utils.MakeDirectory(CurrentWorkingDirectory, name, fileAttributes);
+                Utils.FSManager.MakeDirectory(CurrentWorkingDirectory, name, fileAttributes);
         }
 
         public void CreateFile(string name, FileAttributes fileAttributes)
         {
             if (CurrentWorkingDirectory != null)
-                Utils.MakeFile(CurrentWorkingDirectory, name, fileAttributes);
+                Utils.FSManager.MakeFile(CurrentWorkingDirectory, name, fileAttributes);
         }
         public void RenameEntity(IPathEntity entity, string name, FileAttributes fileAttributes)
         {
             if (CurrentWorkingDirectory != null)
-                Utils.RenameEntity(entity, name, fileAttributes);
+                Utils.FSManager.RenameEntity(entity, name, fileAttributes);
         }
 
-        public List<IPathEntity> Serarch(string template, bool includeSubDirectoris, bool strictSearch) 
+        public List<IPathEntity> Serarch(string pattern, bool includeSubDirectoris, bool strictSearch) 
         {
             if (CurrentWorkingDirectory != null)
-                return Utils.Search(CurrentWorkingDirectory, template, includeSubDirectoris, strictSearch);
+                return Utils.FSManager.Search(CurrentWorkingDirectory, pattern, includeSubDirectoris, strictSearch);
             return new List<IPathEntity>();
         }
 
-        private void FillEmptyHistory()
-        {
-            if (path_history.Count == 0)
-            {
-                IListable parent = CurrentWorkingDirectory.Parent;
-                while (parent != null)
-                {
-                    current_path_index++;
-                    path_history.Insert(0, parent);
-                    parent = parent.Parent;
-                }
-            }
-        }
+        //private void FillEmptyHistory()
+        //{
+        //    if (path_history.Count == 0)
+        //    {
+        //        IListable parent = CurrentWorkingDirectory.Parent;
+        //        while (parent != null)
+        //        {
+        //            current_path_index++;
+        //            path_history.Insert(0, parent);
+        //            parent = parent.Parent;
+        //        }
+        //    }
+        //}
     }
 }
